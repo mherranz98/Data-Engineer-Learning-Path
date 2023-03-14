@@ -1,7 +1,7 @@
 <br>
 <br>
 
-# **Challenge 1: Apache Nifi with local file and API :whale2:**
+# **Challenge 1: Apache Nifi with local file and API 🐋🧑🏼‍💻**
 
 ---
 
@@ -83,6 +83,10 @@ dir -ls
 <br>
 
 ## **Fourth Step**: Access the web-based interface of Nifi and build the pipeline
+
+Enter the hyperlink [https://localhost:8443/nifi/](https://localhost:8443/nifi/), and after clicking on _Proceed Unsafe_, you need to introducte the credentials used when creating the container.
+
+Once logged in, we can start building the pipeline.
 
 Escribimos el nombre del directorio y el file que queremos que coja.
 ![img6](pics/pic2_8.png)
