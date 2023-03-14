@@ -5,6 +5,10 @@
 
 ---
 
+The goal of this challenge is to familiarize yourself with Apache Nifi, a powerful tool designed to control the data flow between systems by means of a user-friendly web interface. In addition, and due to the fact that it is the first challenge using Docker, I will go through the basics of this tool.
+
+In this challenge, we will read, process and write data in two separate pipelines: the first one will read a local csv file, filter it by an attribute and write it to a json file; the second is an streaming processing pipeline that ingests data from a public API, processes it and finally writes in a json file.
+
 <br>
 
 ## **First step**: Download the Apache Nifi from Docker Hub with a "docker pull" command
