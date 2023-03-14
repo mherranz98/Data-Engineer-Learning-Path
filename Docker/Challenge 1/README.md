@@ -1,16 +1,28 @@
 # **Challenge 1: Apache Nifi with local file and API**
 
-## **Primer paso**: Descargamos el contenedor de apache/nifi de Docker Hub con un pull command
+## **First step**: Download the Apache Nifi from Docker Hub with a "docker pull" command
 
-En un prompt ejecutamos un pull (o run command) de Docker para que nos descargue el contenedor de Docker Hub: **apache-nifi**.
+In the host CLI we execute the following command:
+
+```bash
+docker pull apache/nifi
+```
+
+Because a version is not specified in the command, the lastest will be downloaded in our local image repository. Once downloaded, we can execute the command:
+
+```bash
+docker images
+```
+
+and a detailed list of the available downloaded images will be displayed.
 
 ![img1](pics/pic2_1.png)
 
 <br>
 
-## **Segundo paso**: Levantamos apache/nifi
+## **Second step**: Instantiate the apache/nifi image
 
-Mediante el siguiente comando:
+In other words,
 
 ![img2](pics/pic2_2.png)
 
