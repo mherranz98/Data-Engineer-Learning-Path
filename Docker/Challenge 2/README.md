@@ -1,45 +1,36 @@
 <br>
 <br>
 
-# **Challenge 1: Apache Nifi with local file and API 🐋🧑🏼‍💻**
+# **Challenge 2: Apache Kafka, Python and DBs 🐋🧑🏼‍💻**
 
 ---
 
 <br>
 
-## **First step**: Download the Apache Nifi from Docker Hub with a "docker pull" command
+## **First step**: Download the required images and create the docker-compose file
 
 In the host CLI we execute the following command:
 
 ```bash
-docker pull apache/nifi
+docker pull <image_name>
 ```
 
-Because a version is not specified in the command, the lastest will be downloaded in our local image repository. Once downloaded, we can execute the command:
-
-```bash
-docker images
-```
-
-and a detailed list of the available downloaded images will be displayed.
+Once downloaded, we will proceed creating a yaml file. Unlike with single running containers, a compose file allow us to define all the services we need to build our application, and the way they should interact with regard to ports or storage, amid others.
+A yaml (or yml) file is a descriptive script that tells Docker the services we need, and this deploys all the infrastructure.
 
 ![img1](pics/pic2_1.png)
 
 <br>
 
-## **Second step**: Instantiate the apache/nifi image
+## **Second step**: Start the services in YAML file
 
-Once downloaded the image, we need to make it run by executing the following command:
+We can start the compose by executing the following command:
 
 ```bash
-docker run --name nifi \
-  -p 8443:8443 \
-  -d \
-  -e SINGLE_USER_CREDENTIALS_USERNAME=admin \
-  -e SINGLE_USER_CREDENTIALS_PASSWORD=ctsBtRBKHRAx69EqUghvvgEvjnaLjFEB \
-  apache/nifi:latest
+docker-compose up -d
 ```
 
+\*\*
 With this command we are able to instantiate the image, that is creating a container. In the command we specify the name of the container "nifi", which must be unique, the ports mapped (port 8443 from container maps to port 8443 on host), and finally a single user authentication credentials that are specified as environment variables. No volumes are created so far (see Challenge 2)
 
 Once executed, we can see in the Docker Desktop container page there is an instance of the Apache Nifi image running with some details are displayed. We can also display the running containers on the CLI by executing the command:
