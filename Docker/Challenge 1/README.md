@@ -1,6 +1,11 @@
 <br>
+<br>
 
 # **Challenge 1: Apache Nifi with local file and API**
+
+---
+
+<br>
 
 ## **First step**: Download the Apache Nifi from Docker Hub with a "docker pull" command
 
@@ -24,27 +29,60 @@ and a detailed list of the available downloaded images will be displayed.
 
 ## **Second step**: Instantiate the apache/nifi image
 
-In other words,
+Once downloaded the image, we need to make it run by executing the following command:
 
-![img2](pics/pic2_2.png)
+```bash
+docker run --name nifi \
+  -p 8443:8443 \
+  -d \
+  -e SINGLE_USER_CREDENTIALS_USERNAME=admin \
+  -e SINGLE_USER_CREDENTIALS_PASSWORD=ctsBtRBKHRAx69EqUghvvgEvjnaLjFEB \
+  apache/nifi:latest
+```
 
-Abrimos en el puerto 8443 el Nifi, y adjudicamos una contraseña cualquiera a la sesion del usuario admin. Podemos comprobar con el comando docker ps que el contenedor está funcionando. Alternativamente, podemos verlo en Docker Desktop.
+With this command we are able to instantiate the image, that is creating a container. In the command we specify the name of the container "nifi", which must be unique, the ports mapped (port 8443 from container maps to port 8443 on host), and finally a single user authentication credentials that are specified as environment variables. No volumes are created so far (see Challenge 2)
+
+Once executed, we can see in the Docker Desktop container page there is an instance of the Apache Nifi image running with some details are displayed. We can also display the running containers on the CLI by executing the command:
+
+```bash
+docker ps
+```
+
+![img2](pics/pic2_22.png)
+
+We can also access the CLI of the container by clicking on the container of Docker Desktop and accessing the Terminal page in it. Another option is the execute the command below, which will make a bash CLI of the container pop up in the same host CLI. We can go back to the host terminal with an _exit_ command.
+
+```bash
+docker exec -it <container_name> /bin/bash
+```
 
 ![img3](pics/pic2_3.png)
 
 <br>
 
-## **Tercer paso**: Copiamos el archivo que tenemos en el host en el contenedor en el cual estamos trabajando
+## **Third Step**: Copy the local file in host to nifi container
 
-Para poder hacer esta copia, primero de todo debemos saber en qué directorio estamos trabajando ejecutando un pwd en un prompt del contenedor. El directorio de trabajo en el contenedor es: **/opt/nifi/nifi-current**. Aquí, crearemos las carpetas input_files y output_files con el comando mkdir para diferenciar cuáles son los archivos input y output.
-Una vez creados los directorios, copiaremos el archivo netflix.csv desde el host hasta el contenedor con el siguiente comando.
+Because no volumes were mounted, we need to copy the required files stored in our host to the container so as to work with it. Afterwards, we will have to copy the resulting file to host.
 
-![img4](pics/pic2_6.png)
-![img5](pics/pic2_5.png)
+To copy the file we must execute the following command in the host prompt:
+
+```bash
+docker cp data/netflix.json nifi:/opt/nifi/nifi-current/input_data
+```
+
+This command has been executed inside the Challenge 1 directory, so in order to access the json file we must write the relative path, and for the destination file we first need to specify the container name, which is the one we have given when instantiating the image in the run command, and the absolute path to the destination directory.
+
+Note that by executing the command below on the _nifi/current_ directory, we can see that not all the read-write permissions of the input_data directory directory are granted.
+
+```bash
+dir -ls
+```
+
+![img23](pics/pic2_23.png)
 
 <br>
 
-## **Cuarto paso**: Empezamos a crear el pipeline con la ingesta del csv
+## **Fourth Step**: Access the web-based interface of Nifi and build the pipeline
 
 Escribimos el nombre del directorio y el file que queremos que coja.
 ![img6](pics/pic2_8.png)
