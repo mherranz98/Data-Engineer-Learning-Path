@@ -15,7 +15,7 @@ In the host CLI we execute the following command:
 docker pull apache/nifi
 ```
 
-Because a version is not specified in the command, the lastest will be downloaded in our local image repository. Once downloaded, we can execute the command:
+Because a version is not specified in the command :whale: , the lastest will be downloaded in our local image repository. Once downloaded, we can execute the command:
 
 ```bash
 docker images
