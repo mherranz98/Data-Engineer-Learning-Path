@@ -5,9 +5,13 @@
 
 ---
 
+The goal of this challenge is to familiarize yourself with Apache Kafka, an event streaming platform that enables us to handle real-time data feeds. We will go through the basics of its architecture and finally do some processing with a Python scripts. Resulting data will be pushed to databases, relational and non-relational.
+
+In the second part of the [Challenge 1](../Challenge%201), we were able to discover the power of Nifi as an streaming tool. A similar pipeline will be used to stream data to a queue on Kakfa. This messages (or records) will be ingested, processed and written to DB using a Python script.
+
 <br>
 
-## **First step**: Download the required images and create the docker-compose file
+## **First step**: Download the required images and create compose file
 
 In the host CLI we execute the following command:
 
