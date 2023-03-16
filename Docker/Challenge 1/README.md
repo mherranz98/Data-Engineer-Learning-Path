@@ -105,9 +105,9 @@ Two different pipelines will be created; the first will read the data from a loc
 
 <p align="right"><a href="#readme-top">🔙</a></p>
 
-<br>
-
 ---
+
+<br>
 
 ## **1. Batch pipeline with local JSON file**
 
@@ -179,5 +179,13 @@ Con el processor PutFile, configuramos el directorio donde queremos dejarlo.
 De forma análoga a lo que hicimos para copiar el archivo netflix.csv desde el host hasta el contenedor, ahora copiamos el archivo resultante desde la carpeta output_files del contenedor hasta nuestro lugar de trabajo /RETO 3.
 
 ![img12](pics/pic2_17.png)
+
+<p align="right"><a href="#readme-top">🔙</a></p>
+
+---
+
+<br>
+
+## **2. Stream pipeline with API**
 
 <p align="right"><a href="#readme-top">🔙</a></p>
