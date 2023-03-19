@@ -10,6 +10,26 @@ The goal of this challenge is to familiarize yourself with Apache Nifi, a powerf
 
 In this challenge, we will read, process and write data in two separate pipelines: the first one will read a local csv file, filter it by an attribute and write it to a json file; the second is an streaming processing pipeline that ingests data from a public API, processes it and finally writes in a json file.
 
+[Nifi](https://nifi.apache.org/docs/nifi-docs/html/nifi-in-depth.html) is an Apache project designed to integrate and automate the flow of data between systems. It is an open source low-code program that consists of the following components:
+
+- **Web Server** is an HTTP-based component used to visualize the data flow and monitor the events in a user-friendly environment.
+- **Flow Controller** is in charge of the Nifi behaviour, extensions and schedules
+- **Flowfile** are data records that consist of the content and attributes of data.
+- **Processors** are used to listen for incoming data; pull data from external sources; publish data to external sources; and route, transform, or extract information from FlowFiles.
+- **Provenance** is a record of what tranformations have undegone the Flowfile.
+- **Extensions** can be created to build your own processors with a rapid development and effective testing.
+- **Repositories** allow us to undestand Flowfiles and how they have been used by the underlying system. There are three: Flowfile repository for metadata of current Flowfiles in the flow, Content repository for content of current and past Flowfiles, and Provenance repository for the history of Flowfiles.
+
+Apache NiFi works by creating data flows, which are composed of interconnected processors that perform specific data processing tasks such as filtering, aggregation, splitting, and merging. Each of them has its own set of properties that can be configured to control its behavior, such as the input and output formats, the criteria for filtering data, and the rules for routing data to different destinations.
+
+As the data flows through the processors, NiFi keeps track of its provenance, or lineage, which provides a complete record of the data's origin, transformation, and destination. This provenance data can be used for auditing, troubleshooting, and compliance purposes.
+
+Once the data has been processed, NiFi can route it to various destinations, such as databases, Hadoop clusters, messaging systems, or other applications. NiFi also provides a range of data routing options, such as round-robin, load balancing, and failover, to ensure that data is delivered to its intended destination in a timely and reliable manner.
+
+Overall, NiFi's drag-and-drop interface onto a canvas, extensive set of processors, and support for real-time data processing and routing make it a powerful and flexible data integration tool that can be used for a wide range of data integration use cases.
+
+To know more about Apache Nifi, read the article [`How Apache Nifi works - surf on your dataflow, don’t drown in it`](https://www.freecodecamp.org/news/nifi-surf-on-your-dataflow-4f3343c50aa2/)
+
 <br>
 
 ## **First step**: Download the Apache Nifi from Docker Hub with a "docker pull" command
@@ -90,16 +110,6 @@ dir -ls
 ## **Fourth Step**: Access the web-based interface of Nifi and build the pipeline
 
 Enter the hyperlink [https://localhost:8443/nifi/](https://localhost:8443/nifi/), and after clicking on _Proceed Unsafe_, you need to introducte the credentials used when creating the container. Once logged in, we can start building the pipeline.
-
-[Nifi](https://nifi.apache.org/docs/nifi-docs/html/nifi-in-depth.html) is an Apache project designed to integrate and automate the flow of data between systems. It is an open source low-code program that consists of the following components:
-
-- **Web Server** is an HTTP-based component used to visualize the data flow and monitor the events in a user-friendly environment.
-- **Flow Controller** is in charge of the Nifi behaviour, extensions and schedules
-- **Flowfile** are data records that consist of the content and attributes of data.
-- **Processors** are used to listen for incoming data; pull data from external sources; publish data to external sources; and route, transform, or extract information from FlowFiles.
-- **Provenance** is a record of what tranformations have undegone the Flowfile.
-- **Extensions** can be created to build your own processors with a rapid development and effective testing.
-- **Repositories** allow us to undestand Flowfiles and how they have been used by the underlying system. There are three: Flowfile repository for metadata of current Flowfiles in the flow, Content repository for content of current and past Flowfiles, and Provenance repository for the history of Flowfiles.
 
 Two different pipelines will be created; the first will read the data from a local json file, will filter some films depending on their film rating, and finally write it to a csv file. The second pipeline, on the contrary, will take the data from an API in streaming, it will apply some transformations and write the records in a csv file.
 
