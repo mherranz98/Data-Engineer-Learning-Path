@@ -14,11 +14,9 @@ services:
       SINGLE_USER_CREDENTIALS_PASSWORD: password1234
 
   # Kafka services include a web-based UI monitor data flows and find and troubleshoot issues 
-  # in data while delivering optimal performance. It makes easy to monitor key metrics of Kafka
-  # clusters, Brokers, Topics, Partitions, Production, and Consumption. Zookeeper is a  provides
-  # a centralized service for providing configuration information, naming, synchronization and 
-  # group services over large clusters in distributed systems. Kakfa can be run without it though.
-  # Finally, we have Kafka itself, where the listener ports have been configured. 
+  # in data while delivering optimal performance. Zookeeper provides a centralized service for
+  # providing configuration information, naming, synchronization and group services over large
+  # clusters in distributed systems. It could be run without it though. And lastly, Kafka itself 
   kafka-ui:
     container_name: kafka-ui
     image: provectuslabs/kafka-ui:latest
@@ -65,10 +63,10 @@ services:
       - 8889:8889
 
   # PostgreSQL services include PgAdmin that is a web-based GUI tool used to interact with 
-  # the Postgres database sessions, both locally and remote servers as well, and Postgres 
-  # itself. PgAdmin, as well as Mongo-Express, is a SQL client software application and 
-  # database administration tool. Altough, these tools are optional as all actions performed
-  # could also be done by means of the CLI, it is recommended in order to make it more user-friendly.
+  # the Postgres database sessions, both locally and remote servers as well; and Postgres 
+  # itself. PgAdmin, as well as Mongo-Express, is a client software application and 
+  # database administration tool. These tools are optional as all actions performed could 
+  # also be done by means of the CLI, but it is recommended to make it more user-friendly.
   postgres:
     container_name: postgres
     image: postgres
@@ -93,7 +91,7 @@ services:
       - postgres
 
   # MongoDB services include Mongo-Express that is an interactive lightweight Web-Based 
-  # Administrative Tool to effectively manage MongoDB, and MongoDB itself.
+  # administrative tool to effectively manage MongoDB; and MongoDB itself.
   mongo:
     container_name: mongo
     image: mongo
