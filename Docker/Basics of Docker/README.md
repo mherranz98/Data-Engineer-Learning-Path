@@ -92,6 +92,10 @@ Another great thing about Docker Compose is that users can spin up all the servi
 docker-compose up -d
 ```
 
+If executed once more, this command will add, update or delete any infrastructure that has changed in the docker compose declarative file. In other words, there is no need to stop, delete and recreate the services as these can be added on the fly.
+
+Analogously, and thanks to the layer-based architecture of Docker, if a different version of a service is required, not all the image will be downloaded as many of the layers of the older version can be reused for the newer one.
+
 <br>
 
 ## 📗 Bibliography

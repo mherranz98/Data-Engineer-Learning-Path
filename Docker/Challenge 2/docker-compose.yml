@@ -103,7 +103,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=mchi1234
       - MONGO_INITDB_DATABASE=simpsons
     volumes:
-      - C:\Users\mchi\OneDrive - GFT Technologies SE\Documents\Git_Working\datalearningproject\RETO 8:/usr/src/app
+      - C:\Work\GitHub\DataEngineerLearningPath\Docker\Challenge 2\mongo:/usr/src/app
   
   mongo-express:
     container_name: mongo-express

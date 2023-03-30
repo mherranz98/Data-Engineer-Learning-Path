@@ -57,29 +57,55 @@ To know more about Kafka, read the article [`In-Depth Summary of Apache Kafka`](
 
 <br>
 
-## **First step**: Download the required images and create compose file
+## **First step**: Create compose file and start its services
 
-In the host CLI we execute the following command:
+There is no need to download one by one the images that are going to be used in the challenge. Instead, by simply building up the compose, images not available in the local image repository will be downloaded (pull flag in _docker-compose up_ command is set to "always" by default).
 
-```bash
-docker pull <image_name>
-```
+We will proceed creating a yaml file that unlike with single running containers, it allow us to define all the services we need in order to build our application, and the way they should interact with regard to ports or storage, amid others.
+A yaml (or yml) file is a declarative script that tells Docker the services we need to deploy and this does it by itself.
 
-Once downloaded, we will proceed creating a yaml file. Unlike with single running containers, a compose file allow us to define all the services we need to build our application, and the way they should interact with regard to ports or storage, amid others.
-A yaml (or yml) file is a descriptive script that tells Docker the services we need, and this deploys all the infrastructure.
+<p align = "center">
+  <img src="pics/pic2_1.png" alt="Docker Compose YAML File" width="400">
+  <p align = "center">
+    <i>Docker Compose YAML File</i>
+  </p>  
+</p>
 
-![img1](pics/pic2_1.png)
-
-<br>
-
-## **Second step**: Start the services in YAML file
-
-We can start the compose by executing the following command:
+We can start the services in the compose by executing the following command:
 
 ```bash
 docker-compose up -d
 ```
 
-This, will spin up all resources in the Docker Compose file, with the configuration defined in it (network, volumes, image, version, etc.)
+This, will spin up all resources in the Docker Compose file with the configuration defined in it (network, volumes, image, version, etc.). The services we include in this challenge are:
 
-<a name="build-image"></a> _needed for referencing in Docker Basics_
+- **Nifi** image which includes a UI that can be accessed through the port 8443
+- **Kakfa** images that consist of 3 distinct services: a web-based UI, Zookeeper for distributed coordination of Kafka brokers (though not needed), and Kafka itself
+- **Python** image to execute scripts
+- **Postgres** which includes a UI named pgadmin and the database itself
+- **MongoDB** which includes a UI named mongo-express and the database itself
+
+<br>
+
+## **Second step**: Design the streaming pipeline in Nifi
+
+Once services are up and running, we can access Nifi in a similar way we did in Challenge 1. Next we will create a similar pipeline to the one we made in the [second part of the Challenge 1.](../Challenge%201/README.md#readme-second) The processors that we will use will be (...)
+
+Depending where do we want to send the \_\_
+Primero de todo importamos el KafkaConsumer de la libraria Kafka, ya que queremos consumir los records que se van mandando en streaming a Kafka.
+Posteriormente, detallamos el topic que le hemos asignado a las quotes desde Nifi (quotes-simpsons), así como el bootstrap_server del cual debe consumir. Este no es ni más ni menos que la pareja host:puerto desde el cuál podremos consumir los records. En el docker-compose.yml se ha especificado que el puerto para comunicar con host (máquina local, no Docker) sea localhost:9092. Por el contrario, cuando mandamos dentro de Docker, como el Publisher de Nifi, debemos utilizar el host de Docker de Kafka (reto5-kafka-1) y su correspondiente puerto 29092.
+
+<p align = "center">
+  <img src="pics/pic2_2.png" alt="Kafka Architecture within Docker" width="450">
+  <p align = "center">
+    <i>Kafka Architecture within Docker</i>
+  </p>  
+</p>
+
+We can start the services in the compose by executing the following command:
+
+```bash
+docker-compose up -d
+```
+
+<a name="build-image"></a> \_needed for referencing in Docker Basics_when creating own python image
