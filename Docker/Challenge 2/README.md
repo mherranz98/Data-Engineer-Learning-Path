@@ -65,17 +65,28 @@ We will proceed creating a yaml file that unlike with single running containers,
 A yaml (or yml) file is a declarative script that tells Docker the services we need to deploy and this does it by itself.
 
 <p align = "center">
-  <img src="pics/pic2_1.png" alt="Docker Compose YAML File" width="400">
+  <img src="pics/pic2_1.png" alt="Docker Compose YAML File" width="350">
   <p align = "center">
     <i>Docker Compose YAML File</i>
   </p>  
 </p>
+
+<br>
 
 We can start the services in the compose by executing the following command:
 
 ```bash
 docker-compose up -d
 ```
+
+<p align = "center">
+  <img src="pics/pic2_3.png" alt="docker-compose up command" width="600">
+  <p align = "center">
+    <i>docker-compose up command</i>
+  </p>  
+</p>
+
+<br>
 
 This, will spin up all resources in the Docker Compose file with the configuration defined in it (network, volumes, image, version, etc.). The services we include in this challenge are:
 
@@ -89,23 +100,51 @@ This, will spin up all resources in the Docker Compose file with the configurati
 
 ## **Second step**: Design the streaming pipeline in Nifi
 
-Once services are up and running, we can access Nifi in a similar way we did in Challenge 1. Next we will create a similar pipeline to the one we made in the [second part of the Challenge 1.](../Challenge%201/README.md#readme-second) The processors that we will use will be (...)
+Once services are up and running, we can access Nifi in a similar way we did in Challenge 1. Next we will create a similar pipeline to the one we made in the [second part of the Challenge 1.](../Challenge%201/README.md#readme-second) The processors that we will use will be _GetHTTP_, _SplitJson_, and _Publish_Kafka_2_6_.
 
-Depending where do we want to send the \_\_
-Primero de todo importamos el KafkaConsumer de la libraria Kafka, ya que queremos consumir los records que se van mandando en streaming a Kafka.
-Posteriormente, detallamos el topic que le hemos asignado a las quotes desde Nifi (quotes-simpsons), así como el bootstrap_server del cual debe consumir. Este no es ni más ni menos que la pareja host:puerto desde el cuál podremos consumir los records. En el docker-compose.yml se ha especificado que el puerto para comunicar con host (máquina local, no Docker) sea localhost:9092. Por el contrario, cuando mandamos dentro de Docker, como el Publisher de Nifi, debemos utilizar el host de Docker de Kafka (reto5-kafka-1) y su correspondiente puerto 29092.
+The first processor is resposible of performing the HTTP requests for the API and streaming the response to the SplitJson processor, which separates the different records stored in a single HTTP response and sends them into the publisher processor, which receives individual messages and publishes them into the Kafka topic.
 
 <p align = "center">
-  <img src="pics/pic2_2.png" alt="Kafka Architecture within Docker" width="450">
+  <img src="pics/pic2_4.png" alt="NiFi pipeline" width="400">
+  <p align = "center">
+    <i>NiFi pipeline</i>
+  </p>  
+</p>
+
+Because we want to publish the messages to Kafka, we will set the Kafka broker address to the name of the container that can be found executing the commands below, and the port number that was set to 9092 in the docker-compose file:
+
+```bash
+docker network ls
+```
+
+```bash
+docker inspect <network_name>
+```
+
+This will display a list of the running containers in the compose chosen with its corresponding names. You will see that this name corresponds to the one set in the docker-compose file to the Kafka service.
+
+Whilst running the pipeline, we can open the Kafka UI accessing the [http://localhost:8080/](http://localhost:8080/) and check that messages are properly being sent to the topic. The topic name is set in the publisher of the NiFi pipeline. We can set a Live mode so messages will be shown in the UI as they are published to the topic.
+
+<p align = "center">
+  <img src="pics/pic2_5.png" alt="Kafka UI in Live mode" width="400">
+  <p align = "center">
+    <i>Kafka UI in Live mode</i>
+  </p>  
+</p>
+
+<br>
+
+## **Third step**: Program the Python script
+
+The first thing we need to consider when composing the Python script is where it will be executed. So as to know the address of the listener, we must have in mind the Kafka Architecture briefly explained above. In case the program is executed in a container from Docker, the port must be the 9092. On the contrary, if trying to access the Kafka listener from outside Docker (localhost), port 9092 should be then used.
+
+In order to work with Kafka from a Python program, we must its client library python-kafka. It provides a convenient and powerful way for Python developers to produce and consume messages to and from Kafka clusters.
+
+<p align = "center">
+  <img src="pics/pic2_2.png" alt="Kafka Architecture within Docker" width="400">
   <p align = "center">
     <i>Kafka Architecture within Docker</i>
   </p>  
 </p>
-
-We can start the services in the compose by executing the following command:
-
-```bash
-docker-compose up -d
-```
 
 <a name="build-image"></a> \_needed for referencing in Docker Basics_when creating own python image

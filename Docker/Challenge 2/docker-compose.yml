@@ -5,7 +5,7 @@ services:
   # Nifi service is exactly the same as we used in Challenge 1, but in this case we are writing
   # the tags used in the docker run command in the compose yaml file.       
   nifi:
-    container_name: nifi-for-kafka
+    container_name: nifi-for-kafka #to distinguish image from one in Challenge 1
     image: apache/nifi:latest
     ports:
       - 8443:8443
@@ -56,12 +56,6 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
-  # Jupyther Pyspark service is used for processing data. We can access it by means of the port 8889
-  jupyter-pyspark:
-    image: jupyter/pyspark-notebook:spark-2
-    ports:
-      - 8889:8889
-
   # PostgreSQL services include PgAdmin that is a web-based GUI tool used to interact with 
   # the Postgres database sessions, both locally and remote servers as well; and Postgres 
   # itself. PgAdmin, as well as Mongo-Express, is a client software application and 
@@ -103,7 +97,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=mchi1234
       - MONGO_INITDB_DATABASE=simpsons
     volumes:
-      - C:\Work\GitHub\DataEngineerLearningPath\Docker\Challenge 2\mongo:/usr/src/app
+      - C:\Work\GitHub\DataEngineerLearningPath\Docker\Challenge 2\mongo_storage:/usr/src/app
   
   mongo-express:
     container_name: mongo-express
@@ -117,3 +111,17 @@ services:
       - 8081:8081
     depends_on: 
       - mongo
+  
+
+  # Python image created by us in order to execute the script in a fully-dockerized env
+  #python:
+  #  container_name: python-with-mongo
+  #  image: python-with-mongo
+  #  depends_on:
+  #    - kafka
+  #    - mongo
+  #    - mongo-express
+  #    - zookeeper
+  #  volumes:
+  #    - C:\Users\mchi\OneDrive - GFT Technologies SE\Documents\Git_Working\datalearningproject\RETO 7\extra:/usr/src/app
+  #  restart: on-failure
