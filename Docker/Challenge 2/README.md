@@ -147,4 +147,6 @@ In order to work with Kafka from a Python program, we must its client library py
   </p>  
 </p>
 
+py -m pip install pymongo on local
+
 <a name="build-image"></a> \_needed for referencing in Docker Basics_when creating own python image
