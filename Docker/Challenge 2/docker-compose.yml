@@ -96,8 +96,8 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=mchi
       - MONGO_INITDB_ROOT_PASSWORD=mchi1234
       - MONGO_INITDB_DATABASE=simpsons
-    volumes:
-      - C:\Work\GitHub\DataEngineerLearningPath\Docker\Challenge 2\mongo_storage:/data/db
+    #volumes:
+    #  - C:\Work\GitHub\DataEngineerLearningPath\Docker\Challenge 2\mongo_storage:/data/db
   
   mongo-express:
     container_name: mongo-express
