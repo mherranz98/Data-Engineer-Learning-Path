@@ -86,6 +86,5 @@ def main():
         writeMessageToMongo(msg, collection)
 
 
-# Hello
 if __name__ == "__main__":
     main()
