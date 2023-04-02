@@ -1,0 +1,63 @@
+from pymongo import MongoClient
+import logging
+import json
+
+
+class Mongo:
+
+    def __init__(self) -> None:
+        self.connectMongoDB = "connectMongoDB"
+
+    def connectMongoDB(host: str, port: int, username: str, password: str) -> MongoClient:
+        """Connect to Mongo DB
+        Args: 
+            - host:   
+            - port:  
+            - username:
+            - password: 
+
+        Returns:
+            - pymongo.MongoClient instance to connect to MongoDB 
+        """
+        try:
+            client = MongoClient(host=host, port=port,
+                                 username=username, password=password)
+            logging.info("Connected to MongoDB")
+            return client
+        except:
+            logging.error("Unable to connect to MongoDB")
+
+    def createMongoCollection(client: MongoClient, db_name: str, collection_name: str):
+        """Create database and collection in MongoDB
+
+        Note: These will not be created until first message is inserted
+
+        Args: 
+            - client: instance of Mongo library to interact with MongoDB
+            - db_name: name of the MongoDB database 
+            - collection_name: name of the MongoDB collection
+
+        Returns:
+            - collection: instance from which to consume messages 
+        """
+        try:
+            db = client[db_name]
+            collection = db[collection_name]
+            logging.info("Collection and Database created")
+            return collection
+        except:
+            logging.error("Unable to create Mongo database and collection")
+
+    def writeKafkaMessageToMongo(message, collection):
+        """ Insert a single message into a MongoDB collection
+
+        Args: 
+            - message: message from Kafka consumer instance
+            - collection: MongoDB collection instance to write to
+        """
+        try:
+            decoded_msg = json.loads(message.value.decode("utf-8"))
+            collection.insert_one(decoded_msg)
+            logging.info("Quote successfully inserted in MongoDB")
+        except:
+            logging.error("Unable to insert the message to Mongo database")

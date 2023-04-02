@@ -15,8 +15,16 @@ logging.basicConfig(level=logging.INFO,
 # ---------------------------------------------------------------------------------
 
 
-def connectKafka(topic, bootstrap_servers):
-    """Function to connect to Kafka Listener"""
+def connectKafka(topic: str, bootstrap_servers: str) -> KafkaConsumer:
+    """Connect to Kafka Listener
+
+    Args: 
+        - topic: Kakfa topic to read from  
+        - bootstrap_servers: host:port pair address of Kafka brokers 
+
+    Returns:
+        - kafka.KafkaConsumer instance from which to consume messages 
+    """
     try:
         kafka_consumer = KafkaConsumer(
             topic, bootstrap_servers=bootstrap_servers)
@@ -26,8 +34,17 @@ def connectKafka(topic, bootstrap_servers):
         logging.error("Unable to connect to Kafka listener")
 
 
-def connectMongoDB(host, port, username, password):
-    """Function to connect to Mongo DB"""
+def connectMongoDB(host: str, port: int, username: str, password: str) -> MongoClient:
+    """Connect to Mongo DB
+    Args: 
+        - host:   
+        - port:  
+        - username:
+        - password: 
+
+    Returns:
+        - pymongo.MongoClient instance to connect to MongoDB 
+    """
     try:
         client = MongoClient(host=host, port=port,
                              username=username, password=password)
@@ -37,8 +54,56 @@ def connectMongoDB(host, port, username, password):
         logging.error("Unable to connect to MongoDB")
 
 
-def connectPostgreSQL(host, port, database, username, password):
-    """Function to connect to PostgreSQL"""
+def createMongoCollection(client: MongoClient, db_name: str, collection_name: str):
+    """Create database and collection in MongoDB
+
+    Note: These will not be created until first message is inserted
+
+    Args: 
+        - client: instance of Mongo library to interact with MongoDB
+        - db_name: name of the MongoDB database 
+        - collection_name: name of the MongoDB collection
+
+    Returns:
+        - collection: instance from which to consume messages 
+    """
+    try:
+        db = client[db_name]
+        collection = db[collection_name]
+        logging.info("Collection and Database created")
+        return collection
+    except:
+        logging.error("Unable to create Mongo database and collection")
+
+
+def writeKafkaMessageToMongo(message, collection):
+    """ Insert a single message into a MongoDB collection
+
+    Args: 
+        - message: message from Kafka consumer instance
+        - collection: MongoDB collection instance to write to
+    """
+    try:
+        decoded_msg = json.loads(message.value.decode("utf-8"))
+        collection.insert_one(decoded_msg)
+        logging.info("Quote successfully inserted in MongoDB")
+    except:
+        logging.error("Unable to insert the message to Mongo database")
+
+
+def connectPostgreSQL(host: str, port: str, database: str, username: str, password: str) -> dict:
+    """Connect to PostgreSQL database
+
+    Args: 
+        - host:   
+        - port: 
+        - database: name of the database to connecto to (defined in docker-compose file in our case)
+        - username:
+        - password: 
+
+    Returns:
+        - dict { str : psycopg2.client, str : psycopg2.client.cursor } instance to connect to MongoDB 
+    """
     try:
         connection = Psycopg2Client(host=host, port=port, database=database,
                                     user=username, password=password)
@@ -49,20 +114,16 @@ def connectPostgreSQL(host, port, database, username, password):
         logging.error("Unable to connect to PostgreSQL")
 
 
-def createMongoCollection(client, db_name, collection_name):
-    """Function to create database and collection. These will not be created until first
-    message is inserted"""
-    try:
-        db = client[db_name]
-        collection = db[collection_name]
-        logging.info("Collection and Database created")
-        return collection
-    except:
-        logging.error("Unable to create Mongo database and collection")
+def createTablePostgreSQL(PostgresClient: Psycopg2Client, table_name: str, table_schema: str):
+    """Create a table in PostgreSQL if not exists in the database to which we are connected
 
+    Note: a schema must be provided as SQL databases are schema on-write
 
-def createTablePostgreSQL(PostgresClient, table_name, table_schema):
-    """Function to create a table in PostgreSQL if not exists"""
+    Args: 
+        - PostgresClient: Psycopg2Client client instance to connect to Postgres database 
+        - table_name: name of table we want to create
+        - table_schema: schema of the table we want to create
+    """
     query = "CREATE TABLE IF NOT EXISTS public.{0} ({1})".format(
         table_name, table_schema)
     try:
@@ -73,18 +134,13 @@ def createTablePostgreSQL(PostgresClient, table_name, table_schema):
         logging.error("Unable to create table")
 
 
-def writeMessageToMongo(message, collection):
-    """Function to insert a single message into MongoDB collection defined in previous function"""
-    try:
-        decoded_msg = json.loads(message.value.decode("utf-8"))
-        collection.insert_one(decoded_msg)
-        logging.info("Quote successfully inserted in MongoDB")
-    except:
-        logging.error("Unable to insert the message to Mongo database")
+def writeKafkaMessageToPostgreSQL(message, PostgresClient):
+    """Insert a single record into Postgres database
 
-
-def writeMessageToPostgreSQL(message, PostgresClient):
-    """Function to insert a single message into PostreSQL defined in previous function"""
+    Args: 
+        - message: message from Kafka consumer instance
+        - PostgresClient: Psycopg2Client client instance to connect to Postgres database 
+    """
     decoded_msg = json.loads(message.value.decode("utf-8"))
     template = Template(
         """INSERT INTO public.quotes(quotes, charact, imag) VALUES ('$quote' , '$charact' , '$imag')""")
@@ -143,8 +199,8 @@ def main():
     # Insert messages in stream while connected to kafka bootstrap server (kafka_consumer)
     for msg in kafka_consumer:
         if msg.offset % 2 != 0:  # for every message we get two entries: content + metadata
-            writeMessageToMongo(msg, collection)
-            writeMessageToPostgreSQL(msg, connection)
+            writeKafkaMessageToMongo(msg, collection)
+            writeKafkaMessageToPostgreSQL(msg, connection)
         else:
             pass
 
