@@ -6,5 +6,41 @@ INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_versi
 WARNING:kafka.coordinator.consumer:group_id is None: disabling auto-commit.
 INFO:kafka.consumer.subscription_state:Updating subscribed topics to: ('topic_quotes',)
 INFO:root:Connected to Kafka listener
-ERROR:root:Unable to connect to PostgreSQL
-ERROR:root:Unable to create database or table
+INFO:root:Connected to MongoDB
+INFO:root:Collection and Database created
+INFO:root:Connected to PostgreSQL
+INFO:root:Table created
+INFO:kafka.consumer.subscription_state:Updated partition assignment: [TopicPartition(topic='topic_quotes', partition=0)]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
+INFO:root:Quote successfully inserted in MongoDB
+INFO:root:Quote successfully inserted in Postgres DB
