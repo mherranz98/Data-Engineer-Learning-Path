@@ -28,8 +28,10 @@ class Postgres:
             cursor = connection.cursor()
             logging.info("Connected to PostgreSQL")
             return {"connection": connection, "cursor": cursor}
-        except:
+
+        except Exception as e:
             logging.error("Unable to connect to PostgreSQL")
+            logging.exception(e)
 
     def createTablePostgreSQL(PostgresClient: Psycopg2Client, table_name: str, table_schema: str):
         """Create a table in PostgreSQL if not exists in the database to which we are connected
@@ -41,14 +43,21 @@ class Postgres:
             - table_name: name of table we want to create
             - table_schema: schema of the table we want to create
         """
+
+        if PostgresClient is None:
+            logging.error(
+                "Unable to create table in Postgres due to missing client instance")
+            quit()
+
         query = "CREATE TABLE IF NOT EXISTS public.{0} ({1})".format(
             table_name, table_schema)
         try:
             PostgresClient["cursor"].execute(query)
             PostgresClient["connection"].commit()
             logging.info("Table created")
-        except:
+        except Exception as e:
             logging.error("Unable to create table")
+            logging.exception(e)
 
     def writeKafkaMessageToPostgreSQL(message, PostgresClient):
         """Insert a single record into Postgres database
@@ -57,6 +66,10 @@ class Postgres:
             - message: message from Kafka consumer instance
             - PostgresClient: Psycopg2Client client instance to connect to Postgres database
         """
+        if PostgresClient is None:
+            logging.error(
+                "Unable to write to Postgres due to missing client instance")
+
         decoded_msg = json.loads(message.value.decode("utf-8"))
         template = Template(
             """INSERT INTO public.quotes(quotes, charact, imag) VALUES ('$quote' , '$charact' , '$imag')""")
@@ -66,6 +79,7 @@ class Postgres:
             PostgresClient["cursor"].execute(query)
             PostgresClient["connection"].commit()
             logging.info("Quote successfully inserted in Postgres DB")
-        except:
+        except Exception as e:
             logging.error(
                 "Unable to insert the message to PostgreSQL database")
+            logging.exception(e)

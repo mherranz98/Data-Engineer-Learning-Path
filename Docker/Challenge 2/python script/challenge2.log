@@ -1,85 +1,14 @@
-INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
-INFO:kafka.conn:Probing node bootstrap-0 broker version
-INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
-INFO:kafka.conn:Broker version identified as 2.5.0
-INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
-WARNING:kafka.coordinator.consumer:group_id is None: disabling auto-commit.
-INFO:kafka.consumer.subscription_state:Updating subscribed topics to: ('topic_quotes',)
-INFO:root:Connected to Kafka listener
-INFO:root:Connected to MongoDB
-INFO:root:Collection and Database created
-INFO:root:Connected to PostgreSQL
-INFO:root:Table created
-INFO:kafka.consumer.subscription_state:Updated partition assignment: [TopicPartition(topic='topic_quotes', partition=0)]
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
-INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
-INFO:root:Quote successfully inserted in MongoDB
-INFO:root:Quote successfully inserted in Postgres DB
-INFO:root:Quote successfully inserted in MongoDB
-INFO:root:Quote successfully inserted in Postgres DB
-INFO:root:Quote successfully inserted in MongoDB
-INFO:root:Quote successfully inserted in Postgres DB
-INFO:root:Quote successfully inserted in MongoDB
-INFO:root:Quote successfully inserted in Postgres DB
-INFO:root:Quote successfully inserted in MongoDB
-INFO:root:Quote successfully inserted in Postgres DB
-INFO:root:Quote successfully inserted in MongoDB
-INFO:root:Quote successfully inserted in Postgres DB
-INFO:root:Quote successfully inserted in MongoDB
-INFO:root:Quote successfully inserted in Postgres DB
-INFO:root:Quote successfully inserted in MongoDB
-INFO:root:Quote successfully inserted in Postgres DB
-INFO:root:Quote successfully inserted in MongoDB
-INFO:root:Quote successfully inserted in Postgres DB
-INFO:root:Quote successfully inserted in MongoDB
-INFO:root:Quote successfully inserted in Postgres DB
-INFO:root:Quote successfully inserted in MongoDB
-INFO:root:Quote successfully inserted in Postgres DB
-INFO:root:Quote successfully inserted in MongoDB
-INFO:root:Quote successfully inserted in Postgres DB
-ERROR:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: socket disconnected
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. KafkaConnectionError: socket disconnected
-WARNING:kafka.client:Node 1 connection failed -- refreshing metadata
-ERROR:kafka.consumer.fetcher:Fetch to node 1 failed: KafkaConnectionError: socket disconnected
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: connecting to localhost:9092 [('127.0.0.1', 9092) IPv4]
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: Connection complete.
-ERROR:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: socket disconnected
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. KafkaConnectionError: socket disconnected
-WARNING:kafka.client:Node 1 connection failed -- refreshing metadata
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
-ERROR:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: socket disconnected
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. KafkaConnectionError: socket disconnected
-WARNING:kafka.client:Node 1 connection failed -- refreshing metadata
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: connecting to localhost:9092 [('127.0.0.1', 9092) IPv4]
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: Connection complete.
-ERROR:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: socket disconnected
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. KafkaConnectionError: socket disconnected
-WARNING:kafka.client:Node 1 connection failed -- refreshing metadata
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
-ERROR:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: socket disconnected
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. KafkaConnectionError: socket disconnected
-WARNING:kafka.client:Node 1 connection failed -- refreshing metadata
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: connecting to localhost:9092 [('127.0.0.1', 9092) IPv4]
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: Connection complete.
-ERROR:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: socket disconnected
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. KafkaConnectionError: socket disconnected
-WARNING:kafka.client:Node 1 connection failed -- refreshing metadata
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
-ERROR:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: socket disconnected
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. KafkaConnectionError: socket disconnected
-WARNING:kafka.client:Node 1 connection failed -- refreshing metadata
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: connecting to localhost:9092 [('127.0.0.1', 9092) IPv4]
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: Connection complete.
-ERROR:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: socket disconnected
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. KafkaConnectionError: socket disconnected
-WARNING:kafka.client:Node 1 connection failed -- refreshing metadata
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
-ERROR:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: socket disconnected
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. KafkaConnectionError: socket disconnected
-WARNING:kafka.client:Node 1 connection failed -- refreshing metadata
-INFO:kafka.conn:<BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: connecting to localhost:9092 [('127.0.0.1', 9092) IPv4]
+2023-04-03 18:49:31 kafka.conn   INFO     <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+2023-04-03 18:49:31 kafka.conn   INFO     Probing node bootstrap-0 broker version
+2023-04-03 18:49:33 root         ERROR    Unable to connect to Kafka listener
+2023-04-03 18:49:33 root         ERROR    NoBrokersAvailable
+Traceback (most recent call last):
+  File "C:\Work\GitHub\DataEngineerLearningPath\Docker\Challenge 2\python script\utils\Kafka.py", line 21, in connectKafka
+    kafka_consumer = KafkaConsumer(
+  File "C:\Users\mherr\AppData\Local\Programs\Python\Python39\lib\site-packages\kafka\consumer\group.py", line 356, in __init__
+    self._client = KafkaClient(metrics=self._metrics, **self.config)
+  File "C:\Users\mherr\AppData\Local\Programs\Python\Python39\lib\site-packages\kafka\client_async.py", line 244, in __init__
+    self.config['api_version'] = self.check_version(timeout=check_timeout)
+  File "C:\Users\mherr\AppData\Local\Programs\Python\Python39\lib\site-packages\kafka\client_async.py", line 927, in check_version
+    raise Errors.NoBrokersAvailable()
+kafka.errors.NoBrokersAvailable: NoBrokersAvailable

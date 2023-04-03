@@ -18,12 +18,12 @@ logging.basicConfig(level=logging.INFO,
 def connectKafka(topic: str, bootstrap_servers: str) -> KafkaConsumer:
     """Connect to Kafka Listener
 
-    Args: 
-        - topic: Kakfa topic to read from  
-        - bootstrap_servers: host:port pair address of Kafka brokers 
+    Args:
+        - topic: Kakfa topic to read from
+        - bootstrap_servers: host:port pair address of Kafka brokers
 
     Returns:
-        - kafka.KafkaConsumer instance from which to consume messages 
+        - kafka.KafkaConsumer instance from which to consume messages
     """
     try:
         kafka_consumer = KafkaConsumer(
@@ -36,14 +36,14 @@ def connectKafka(topic: str, bootstrap_servers: str) -> KafkaConsumer:
 
 def connectMongoDB(host: str, port: int, username: str, password: str) -> MongoClient:
     """Connect to Mongo DB
-    Args: 
-        - host:   
-        - port:  
+    Args:
+        - host:
+        - port:
         - username:
-        - password: 
+        - password:
 
     Returns:
-        - pymongo.MongoClient instance to connect to MongoDB 
+        - pymongo.MongoClient instance to connect to MongoDB
     """
     try:
         client = MongoClient(host=host, port=port,
@@ -59,13 +59,13 @@ def createMongoCollection(client: MongoClient, db_name: str, collection_name: st
 
     Note: These will not be created until first message is inserted
 
-    Args: 
+    Args:
         - client: instance of Mongo library to interact with MongoDB
-        - db_name: name of the MongoDB database 
+        - db_name: name of the MongoDB database
         - collection_name: name of the MongoDB collection
 
     Returns:
-        - collection: instance from which to consume messages 
+        - collection: instance from which to consume messages
     """
     try:
         db = client[db_name]
@@ -79,7 +79,7 @@ def createMongoCollection(client: MongoClient, db_name: str, collection_name: st
 def writeKafkaMessageToMongo(message, collection):
     """ Insert a single message into a MongoDB collection
 
-    Args: 
+    Args:
         - message: message from Kafka consumer instance
         - collection: MongoDB collection instance to write to
     """
@@ -94,15 +94,15 @@ def writeKafkaMessageToMongo(message, collection):
 def connectPostgreSQL(host: str, port: str, database: str, username: str, password: str) -> dict:
     """Connect to PostgreSQL database
 
-    Args: 
-        - host:   
-        - port: 
+    Args:
+        - host:
+        - port:
         - database: name of the database to connecto to (defined in docker-compose file in our case)
         - username:
-        - password: 
+        - password:
 
     Returns:
-        - dict { str : psycopg2.client, str : psycopg2.client.cursor } instance to connect to MongoDB 
+        - dict { str : psycopg2.client, str : psycopg2.client.cursor } instance to connect to MongoDB
     """
     try:
         connection = Psycopg2Client(host=host, port=port, database=database,
@@ -119,8 +119,8 @@ def createTablePostgreSQL(PostgresClient: Psycopg2Client, table_name: str, table
 
     Note: a schema must be provided as SQL databases are schema on-write
 
-    Args: 
-        - PostgresClient: Psycopg2Client client instance to connect to Postgres database 
+    Args:
+        - PostgresClient: Psycopg2Client client instance to connect to Postgres database
         - table_name: name of table we want to create
         - table_schema: schema of the table we want to create
     """
@@ -137,9 +137,9 @@ def createTablePostgreSQL(PostgresClient: Psycopg2Client, table_name: str, table
 def writeKafkaMessageToPostgreSQL(message, PostgresClient):
     """Insert a single record into Postgres database
 
-    Args: 
+    Args:
         - message: message from Kafka consumer instance
-        - PostgresClient: Psycopg2Client client instance to connect to Postgres database 
+        - PostgresClient: Psycopg2Client client instance to connect to Postgres database
     """
     decoded_msg = json.loads(message.value.decode("utf-8"))
     template = Template(
@@ -197,12 +197,12 @@ def main():
                           table_schema=table_schema)
 
     # Insert messages in stream while connected to kafka bootstrap server (kafka_consumer)
-    for msg in kafka_consumer:
-        if msg.offset % 2 != 0:  # for every message we get two entries: content + metadata
-            writeKafkaMessageToMongo(msg, collection)
-            writeKafkaMessageToPostgreSQL(msg, connection)
-        else:
-            pass
+      for msg in kafka_consumer:
+           if msg.offset % 2 != 0:  # for every message we get two entries: content + metadata
+                writeKafkaMessageToMongo(msg, collection)
+                writeKafkaMessageToPostgreSQL(msg, connection)
+            else:
+                pass
 
     connection["cursor"].close()
 

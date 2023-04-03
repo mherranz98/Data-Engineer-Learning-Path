@@ -6,8 +6,15 @@ from utils.Postgres import Postgres
 
 # Set logging parameters for future monitoring, debugging or error-handling
 logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+                    datefmt='%Y-%m-%d %H:%M:%S',
                     filename="challenge2.log",
-                    filemode="w")
+                    filemode='w')
+# define a Handler which writes INFO messages or higher to the sys.stderr
+console = logging.StreamHandler()
+console.setLevel(logging.ERROR)
+# add the handler to the root logger
+logging.getLogger('').addHandler(console)
 
 # ---------------------------------------------------------------------------------
 # ------------------------------- MAIN PROGRAM ------------------------------------
@@ -54,14 +61,14 @@ def main():
                                    table_schema=table_schema)
 
     # Insert messages in stream while connected to kafka bootstrap server (kafka_consumer)
-    for msg in kafka_consumer:
-        if msg.offset % 2 != 0:  # for every message we get two entries: content + metadata
-            Mongo.writeKafkaMessageToMongo(msg, collection)
-            Postgres.writeKafkaMessageToPostgreSQL(msg, connection)
-        else:
-            pass
+    # for msg in kafka_consumer:
+    #    if msg.offset % 2 != 0:  # for every message we get two entries: content + metadata
+    #        Mongo.writeKafkaMessageToMongo(msg, collection)
+    #        Postgres.writeKafkaMessageToPostgreSQL(msg, connection)
+    #    else:
+    #        pass
 
-    connection["cursor"].close()
+    # connection["cursor"].close()
 
 
 if __name__ == "__main__":

@@ -22,5 +22,7 @@ class Kafka:
                 topic, bootstrap_servers=bootstrap_servers)
             logging.info("Connected to Kafka listener")
             return kafka_consumer
-        except:
+        except Exception as e:
             logging.error("Unable to connect to Kafka listener")
+            logging.exception(e)
+            quit()

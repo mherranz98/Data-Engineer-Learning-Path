@@ -24,8 +24,9 @@ class Mongo:
                                  username=username, password=password)
             logging.info("Connected to MongoDB")
             return client
-        except:
+        except Exception as e:
             logging.error("Unable to connect to MongoDB")
+            logging.exception(e)
 
     def createMongoCollection(client: MongoClient, db_name: str, collection_name: str):
         """Create database and collection in MongoDB
@@ -45,8 +46,9 @@ class Mongo:
             collection = db[collection_name]
             logging.info("Collection and Database created")
             return collection
-        except:
+        except Exception as e:
             logging.error("Unable to create Mongo database and collection")
+            logging.exception(e)
 
     def writeKafkaMessageToMongo(message, collection):
         """ Insert a single message into a MongoDB collection
@@ -59,5 +61,6 @@ class Mongo:
             decoded_msg = json.loads(message.value.decode("utf-8"))
             collection.insert_one(decoded_msg)
             logging.info("Quote successfully inserted in MongoDB")
-        except:
+        except Exception as e:
             logging.error("Unable to insert the message to Mongo database")
+            logging.exception(e)
