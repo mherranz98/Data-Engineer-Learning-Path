@@ -197,12 +197,12 @@ def main():
                           table_schema=table_schema)
 
     # Insert messages in stream while connected to kafka bootstrap server (kafka_consumer)
-      for msg in kafka_consumer:
-           if msg.offset % 2 != 0:  # for every message we get two entries: content + metadata
-                writeKafkaMessageToMongo(msg, collection)
-                writeKafkaMessageToPostgreSQL(msg, connection)
-            else:
-                pass
+    for msg in kafka_consumer:
+        if msg.offset % 2 != 0:  # for every message we get two entries: content + metadata
+            writeKafkaMessageToMongo(msg, collection)
+            writeKafkaMessageToPostgreSQL(msg, connection)
+        else:
+            pass
 
     connection["cursor"].close()
 

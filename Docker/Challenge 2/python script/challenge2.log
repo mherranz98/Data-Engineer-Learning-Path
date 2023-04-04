@@ -1,14 +1,85 @@
-2023-04-03 18:49:31 kafka.conn   INFO     <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
-2023-04-03 18:49:31 kafka.conn   INFO     Probing node bootstrap-0 broker version
-2023-04-03 18:49:33 root         ERROR    Unable to connect to Kafka listener
-2023-04-03 18:49:33 root         ERROR    NoBrokersAvailable
-Traceback (most recent call last):
-  File "C:\Work\GitHub\DataEngineerLearningPath\Docker\Challenge 2\python script\utils\Kafka.py", line 21, in connectKafka
-    kafka_consumer = KafkaConsumer(
-  File "C:\Users\mherr\AppData\Local\Programs\Python\Python39\lib\site-packages\kafka\consumer\group.py", line 356, in __init__
-    self._client = KafkaClient(metrics=self._metrics, **self.config)
-  File "C:\Users\mherr\AppData\Local\Programs\Python\Python39\lib\site-packages\kafka\client_async.py", line 244, in __init__
-    self.config['api_version'] = self.check_version(timeout=check_timeout)
-  File "C:\Users\mherr\AppData\Local\Programs\Python\Python39\lib\site-packages\kafka\client_async.py", line 927, in check_version
-    raise Errors.NoBrokersAvailable()
-kafka.errors.NoBrokersAvailable: NoBrokersAvailable
+2023-04-04 22:09:48  kafka.conn                            INFO       <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+2023-04-04 22:09:48  kafka.conn                            INFO       Probing node bootstrap-0 broker version
+2023-04-04 22:09:48  kafka.conn                            INFO       <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+2023-04-04 22:09:48  kafka.conn                            INFO       Broker version identified as 2.5.0
+2023-04-04 22:09:48  kafka.conn                            INFO       Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+2023-04-04 22:09:48  kafka.coordinator.consumer            WARNING    group_id is None: disabling auto-commit.
+2023-04-04 22:09:48  kafka.consumer.subscription_state     INFO       Updating subscribed topics to: ('topic_quotes',)
+2023-04-04 22:09:48  root                                  INFO       Connected to Kafka listener
+2023-04-04 22:09:48  root                                  INFO       Connected to MongoDB
+2023-04-04 22:09:48  root                                  INFO       Collection and Database created
+2023-04-04 22:09:48  root                                  INFO       Connected to PostgreSQL
+2023-04-04 22:09:48  root                                  INFO       Table created
+2023-04-04 22:09:48  root                                  INFO       Connected to PostgreSQL
+2023-04-04 22:09:48  kafka.consumer.subscription_state     INFO       Updated partition assignment: [TopicPartition(topic='topic_quotes', partition=0)]
+2023-04-04 22:09:48  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+2023-04-04 22:09:48  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+2023-04-04 22:09:48  kafka.conn                            INFO       <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+2023-04-04 22:09:49  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:09:49  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:09:51  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:09:51  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:09:53  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:09:53  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:09:55  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:09:55  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:09:57  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:09:57  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:09:59  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:09:59  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:01  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:01  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:04  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:04  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:06  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:06  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:08  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:08  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:10  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:10  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:12  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:12  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:14  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:14  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:17  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:17  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:19  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:19  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:21  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:21  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:23  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:23  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:25  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:25  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:27  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:27  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:29  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:29  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:32  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:32  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:34  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:34  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:36  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:36  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:38  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:38  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:40  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:40  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:43  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:43  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:45  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:45  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:47  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:47  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:51  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:51  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:53  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:53  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:56  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:56  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:10:58  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:10:58  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:11:00  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:11:00  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-04 22:11:02  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-04 22:11:02  root                                  INFO       Quote successfully inserted in Postgres DB
