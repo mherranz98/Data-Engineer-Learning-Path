@@ -1,85 +1,108 @@
-2023-04-04 22:09:48  kafka.conn                            INFO       <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
-2023-04-04 22:09:48  kafka.conn                            INFO       Probing node bootstrap-0 broker version
-2023-04-04 22:09:48  kafka.conn                            INFO       <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
-2023-04-04 22:09:48  kafka.conn                            INFO       Broker version identified as 2.5.0
-2023-04-04 22:09:48  kafka.conn                            INFO       Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
-2023-04-04 22:09:48  kafka.coordinator.consumer            WARNING    group_id is None: disabling auto-commit.
-2023-04-04 22:09:48  kafka.consumer.subscription_state     INFO       Updating subscribed topics to: ('topic_quotes',)
-2023-04-04 22:09:48  root                                  INFO       Connected to Kafka listener
-2023-04-04 22:09:48  root                                  INFO       Connected to MongoDB
-2023-04-04 22:09:48  root                                  INFO       Collection and Database created
-2023-04-04 22:09:48  root                                  INFO       Connected to PostgreSQL
-2023-04-04 22:09:48  root                                  INFO       Table created
-2023-04-04 22:09:48  root                                  INFO       Connected to PostgreSQL
-2023-04-04 22:09:48  kafka.consumer.subscription_state     INFO       Updated partition assignment: [TopicPartition(topic='topic_quotes', partition=0)]
-2023-04-04 22:09:48  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
-2023-04-04 22:09:48  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
-2023-04-04 22:09:48  kafka.conn                            INFO       <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
-2023-04-04 22:09:49  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:09:49  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:09:51  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:09:51  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:09:53  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:09:53  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:09:55  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:09:55  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:09:57  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:09:57  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:09:59  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:09:59  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:01  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:01  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:04  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:04  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:06  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:06  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:08  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:08  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:10  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:10  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:12  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:12  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:14  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:14  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:17  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:17  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:19  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:19  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:21  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:21  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:23  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:23  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:25  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:25  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:27  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:27  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:29  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:29  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:32  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:32  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:34  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:34  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:36  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:36  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:38  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:38  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:40  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:40  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:43  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:43  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:45  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:45  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:47  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:47  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:51  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:51  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:53  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:53  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:56  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:56  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:10:58  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:10:58  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:11:00  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:11:00  root                                  INFO       Quote successfully inserted in Postgres DB
-2023-04-04 22:11:02  root                                  INFO       Quote successfully inserted in MongoDB
-2023-04-04 22:11:02  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-10 20:41:35  kafka.conn                            INFO       <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+2023-04-10 20:41:35  kafka.conn                            INFO       Probing node bootstrap-0 broker version
+2023-04-10 20:41:35  kafka.conn                            INFO       <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+2023-04-10 20:41:36  kafka.conn                            INFO       Broker version identified as 2.5.0
+2023-04-10 20:41:36  kafka.conn                            INFO       Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+2023-04-10 20:41:36  kafka.coordinator.consumer            WARNING    group_id is None: disabling auto-commit.
+2023-04-10 20:41:36  kafka.consumer.subscription_state     INFO       Updating subscribed topics to: ('topic_quotes',)
+2023-04-10 20:41:36  root                                  INFO       Connected to Kafka listener
+2023-04-10 20:41:36  root                                  INFO       Connected to MongoDB
+2023-04-10 20:41:36  root                                  INFO       Collection and Database created
+2023-04-10 20:41:36  root                                  INFO       Connected to PostgreSQL
+2023-04-10 20:41:36  root                                  INFO       Table created
+2023-04-10 20:41:36  root                                  INFO       Connected to PostgreSQL
+2023-04-10 20:41:36  kafka.consumer.subscription_state     INFO       Updated partition assignment: [TopicPartition(topic='topic_quotes', partition=0)]
+2023-04-10 20:41:36  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+2023-04-10 20:41:36  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+2023-04-10 20:41:36  kafka.conn                            INFO       <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+2023-04-10 20:42:14  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-10 20:42:14  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-10 20:42:15  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-10 20:42:15  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-10 20:42:17  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-10 20:42:17  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-10 20:42:19  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-10 20:42:20  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-10 20:42:23  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-10 20:42:23  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-10 20:42:25  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-10 20:42:25  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-10 20:42:28  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-10 20:42:28  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-10 20:42:31  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-10 20:42:31  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-10 20:42:33  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-10 20:42:33  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-10 20:42:35  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-10 20:42:35  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-10 20:42:38  root                                  INFO       Quote successfully inserted in MongoDB
+2023-04-10 20:42:38  root                                  INFO       Quote successfully inserted in Postgres DB
+2023-04-10 20:43:17  kafka.conn                            ERROR      <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: socket disconnected
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. KafkaConnectionError: socket disconnected
+2023-04-10 20:43:17  kafka.client                          WARNING    Node 1 connection failed -- refreshing metadata
+2023-04-10 20:43:17  kafka.consumer.fetcher                ERROR      Fetch to node 1 failed: KafkaConnectionError: socket disconnected
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: connecting to localhost:9092 [('127.0.0.1', 9092) IPv4]
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: Connection complete.
+2023-04-10 20:43:17  kafka.conn                            ERROR      <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: socket disconnected
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. KafkaConnectionError: socket disconnected
+2023-04-10 20:43:17  kafka.client                          WARNING    Node 1 connection failed -- refreshing metadata
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+2023-04-10 20:43:17  kafka.conn                            ERROR      <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: socket disconnected
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. KafkaConnectionError: socket disconnected
+2023-04-10 20:43:17  kafka.client                          WARNING    Node 1 connection failed -- refreshing metadata
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: connecting to localhost:9092 [('127.0.0.1', 9092) IPv4]
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: Connection complete.
+2023-04-10 20:43:17  kafka.conn                            ERROR      <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: socket disconnected
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. KafkaConnectionError: socket disconnected
+2023-04-10 20:43:17  kafka.client                          WARNING    Node 1 connection failed -- refreshing metadata
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+2023-04-10 20:43:17  kafka.conn                            ERROR      <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: socket disconnected
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. KafkaConnectionError: socket disconnected
+2023-04-10 20:43:17  kafka.client                          WARNING    Node 1 connection failed -- refreshing metadata
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: connecting to localhost:9092 [('127.0.0.1', 9092) IPv4]
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: Connection complete.
+2023-04-10 20:43:17  kafka.conn                            ERROR      <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: socket disconnected
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. KafkaConnectionError: socket disconnected
+2023-04-10 20:43:17  kafka.client                          WARNING    Node 1 connection failed -- refreshing metadata
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+2023-04-10 20:43:17  kafka.conn                            ERROR      <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: socket disconnected
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. KafkaConnectionError: socket disconnected
+2023-04-10 20:43:17  kafka.client                          WARNING    Node 1 connection failed -- refreshing metadata
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: connecting to localhost:9092 [('127.0.0.1', 9092) IPv4]
+2023-04-10 20:43:17  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: Connection complete.
+2023-04-10 20:43:18  kafka.conn                            ERROR      <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: socket disconnected
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. KafkaConnectionError: socket disconnected
+2023-04-10 20:43:18  kafka.client                          WARNING    Node 1 connection failed -- refreshing metadata
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+2023-04-10 20:43:18  kafka.conn                            ERROR      <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: socket disconnected
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. KafkaConnectionError: socket disconnected
+2023-04-10 20:43:18  kafka.client                          WARNING    Node 1 connection failed -- refreshing metadata
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: connecting to localhost:9092 [('127.0.0.1', 9092) IPv4]
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: Connection complete.
+2023-04-10 20:43:18  kafka.conn                            ERROR      <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: socket disconnected
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. KafkaConnectionError: socket disconnected
+2023-04-10 20:43:18  kafka.client                          WARNING    Node 1 connection failed -- refreshing metadata
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+2023-04-10 20:43:18  kafka.conn                            ERROR      <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: socket disconnected
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. KafkaConnectionError: socket disconnected
+2023-04-10 20:43:18  kafka.client                          WARNING    Node 1 connection failed -- refreshing metadata
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: connecting to localhost:9092 [('127.0.0.1', 9092) IPv4]
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: Connection complete.
+2023-04-10 20:43:18  kafka.conn                            ERROR      <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: socket disconnected
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. KafkaConnectionError: socket disconnected
+2023-04-10 20:43:18  kafka.client                          WARNING    Node 1 connection failed -- refreshing metadata
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+2023-04-10 20:43:18  kafka.conn                            ERROR      <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: socket disconnected
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. KafkaConnectionError: socket disconnected
+2023-04-10 20:43:18  kafka.client                          WARNING    Node 1 connection failed -- refreshing metadata
+2023-04-10 20:43:18  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: connecting to localhost:9092 [('127.0.0.1', 9092) IPv4]
+2023-04-10 20:48:23  kafka.conn                            ERROR      Connection attempt to <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]> timed out
+2023-04-10 20:48:23  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. KafkaConnectionError: timeout
+2023-04-10 20:48:23  kafka.client                          WARNING    Node 1 connection failed -- refreshing metadata
+2023-04-10 20:48:23  kafka.conn                            INFO       <BrokerConnection node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]

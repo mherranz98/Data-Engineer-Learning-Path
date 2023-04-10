@@ -136,12 +136,50 @@ Whilst running the pipeline, we can open the Kafka UI accessing the [http://loca
 
 ## **Third step**: Program the Python script
 
-The first thing we need to consider when composing the Python script is where it will be executed. So as to know the address of the listener, we must have in mind the Kafka Architecture briefly explained above. In case the program is executed in a container from Docker, the port must be the 9092. On the contrary, if trying to access the Kafka listener from outside Docker (localhost), port 9092 should be then used.
+The Python scripts will be structured in the following manner:
 
-In order to work with Kafka from a Python program, we must its client library python-kafka. It provides a convenient and powerful way for Python developers to produce and consume messages to and from Kafka clusters.
+```bash
+PS C:\Work\GitHub\DataEngineerLearningPath\Docker\Challenge 2\python script> TREE /F
+│   challenge2.log                      # log file for debugging and monitoring
+│   main.py                             # main Python program
+└───utils/                              # Folder with functions used in main.py script
+    │   Kafka.py
+    │   Mongo.py
+    │   Postgres.py
+    │   __init__.py
+    │   __init__.pyc
+    │
+    └───__pycache__/                    # Compiled code of scripts used in main (faster)
+            Kafka.cpython-39.pyc
+            Mongo.cpython-39.pyc
+            Postgres.cpython-39.pyc
+            __init__.cpython-39.pyc
+```
+
+The main.py file contains the variables (credentials, names of DB or tables, etc.) that the functions stored in the utils directory will take. This script is the one that will be executed.
+
+The utils directory first contains a set of three Python classes, one for each technology that will be used during the challenge. First, there is a Kafka class that contains one single function that will be used to connect to the Kafka broker by means of the client library.
+In order to work with Kafka from a Python program, we must its client library for Python. It provides a convenient and powerful way for Python developers to produce and consume messages to and from Kafka clusters.
+
+Secondly there is a Class for each of the databases. For MongoDB class, we defined three functions: one to connect to Mongo (container in Docker), one to create a database and a collection that will just be executed once the first message is inserted, and a final one to append the messages to the collection. For Postgres class, we created three functions: one that connects to the Postgres server (container in Docker), another that creates a table in the database specified in the docker-compose (simpsons), and a final one to insert each message to the table.
+
+Note that in all these classes, an \_\_init\_\_ method is defined. This is the Python equivalent of the C++ constructor in an object-oriented approach. Every time an instance of an object is created from a class this function is called. Furthermore, we have a \_\_init\_\_.py file in the utils directory. Even though this is empty, it is used to mark directories on disk as Python package directories. If you have Python files you can import the code in them with:
+
+```python
+import directory.file
+""" OR """
+from directory import file
+```
+
+If you remove the \_\_init\_\_.py file, Python will no longer look for submodules inside that directory, so attempts to import the module will fail. Like in our case, the \_\_init\_\_.py file is usually empty, but can be used to export selected portions of the package under more convenient name, hold convenience functions, etc.
+When this is imported, the \_\_init\_\_ file is implicitly executed, and the objects it defines are bound to names in the package namespace. See the official [documentation](https://docs.python.org/3/reference/import.html#regular-packages) for more detail.
+
+Finally, there is a \_\_pycache\_\_ directory that contains bytecode-compiled versions of the program in directory utils. All it does is start the program a little faster as these files have been already been compiled by the Python interpreter. If the files changed, these will be recompiled as the import statement in main.py is executed. Similarly, in case they were deleted, they will be once more created when executing the main file.
+
+One thing we will need to consider when composing the Python script a is where it will be executed. So as to know the address of the listener, we must have in mind the Kafka Architecture briefly explained above. In case the program is executed in a container from Docker, the port must be the 9092. On the contrary, if trying to access the Kafka listener from outside Docker (localhost), port 29092 should be used.
 
 <p align = "center">
-  <img src="pics/pic2_2.png" alt="Kafka Architecture within Docker" width="400">
+  <img src="pics/pic2_2.png" alt="Kafka Architecture within Docker" width="550">
   <p align = "center">
     <i>Kafka Architecture within Docker</i>
   </p>  
