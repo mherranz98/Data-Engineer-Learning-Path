@@ -149,21 +149,18 @@ PS C:\Work\GitHub\DataEngineerLearningPath\Docker\Challenge 2\python script> TRE
     │   __init__.py
     │   __init__.pyc
     │
-    └───__pycache__/                    # Compiled code of scripts used in main (faster)
+    └───__pycache__/                    # Compiled code of scripts (faster to start)
             Kafka.cpython-39.pyc
             Mongo.cpython-39.pyc
             Postgres.cpython-39.pyc
             __init__.cpython-39.pyc
 ```
 
-The main.py file contains the variables (credentials, names of DB or tables, etc.) that the functions stored in the utils directory will take. This script is the one that will be executed.
+- The **main.py** file contains the variables (credentials, names of DB or tables, etc.) that the functions stored in the utils directory will take. This script is the one that will be executed.
 
-The utils directory first contains a set of three Python classes, one for each technology that will be used during the challenge. First, there is a Kafka class that contains one single function that will be used to connect to the Kafka broker by means of the client library.
-In order to work with Kafka from a Python program, we must its client library for Python. It provides a convenient and powerful way for Python developers to produce and consume messages to and from Kafka clusters.
+- The **utils directory** first contains a set of three Python classes, one for each technology that will be used during the challenge. First of all, there is a **Kafka class** that contains one single function that will be used to connect to the Kafka broker by means of the client library. In order to work with Kafka from a Python program, we must its client library for Python. It provides a convenient and powerful way for Python developers to produce and consume messages to and from Kafka clusters. Secondly, there is a Class for each of the databases. For **MongoDB class**, we defined three functions: one to connect to Mongo (container in Docker), one to create a database and a collection that will just be executed once the first message is inserted, and a final one to append the messages to the collection. For **Postgres class**, we created three functions: one that connects to the Postgres server (container in Docker), another that creates a table in the database specified in the docker-compose (simpsons), and a final one to insert each message to the table.
 
-Secondly there is a Class for each of the databases. For MongoDB class, we defined three functions: one to connect to Mongo (container in Docker), one to create a database and a collection that will just be executed once the first message is inserted, and a final one to append the messages to the collection. For Postgres class, we created three functions: one that connects to the Postgres server (container in Docker), another that creates a table in the database specified in the docker-compose (simpsons), and a final one to insert each message to the table.
-
-Note that in all these classes, an \_\_init\_\_ method is defined. This is the Python equivalent of the C++ constructor in an object-oriented approach. Every time an instance of an object is created from a class this function is called. Furthermore, we have a \_\_init\_\_.py file in the utils directory. Even though this is empty, it is used to mark directories on disk as Python package directories. If you have Python files you can import the code in them with:
+- Note that in all these classes, an **\_\_init\_\_** method is defined. This is the Python equivalent of the C++ constructor in an object-oriented approach. Every time an instance of an object is created from a class this function is called. Furthermore, we have a **\_\_init\_\_.py** file in the utils directory. Even though this is empty, it is used to mark directories on disk as Python package directories. If you have Python files you can import the code in them with:
 
 ```python
 import directory.file
@@ -171,10 +168,235 @@ import directory.file
 from directory import file
 ```
 
-If you remove the \_\_init\_\_.py file, Python will no longer look for submodules inside that directory, so attempts to import the module will fail. Like in our case, the \_\_init\_\_.py file is usually empty, but can be used to export selected portions of the package under more convenient name, hold convenience functions, etc.
-When this is imported, the \_\_init\_\_ file is implicitly executed, and the objects it defines are bound to names in the package namespace. See the official [documentation](https://docs.python.org/3/reference/import.html#regular-packages) for more detail.
+- If \_\_init\_\_.py file was removed, Python would no longer look for submodules inside that directory, so attempts to import the module will fail. Like in our case, the \_\_init\_\_.py file is usually empty, but can be used to export selected portions of the package under more convenient name, hold convenience functions, etc.
+  When this is imported, the \_\_init\_\_ file is implicitly executed, and the objects it defines are bound to names in the package namespace. See the official [documentation](https://docs.python.org/3/reference/import.html#regular-packages) for more detail.
 
-Finally, there is a \_\_pycache\_\_ directory that contains bytecode-compiled versions of the program in directory utils. All it does is start the program a little faster as these files have been already been compiled by the Python interpreter. If the files changed, these will be recompiled as the import statement in main.py is executed. Similarly, in case they were deleted, they will be once more created when executing the main file.
+- Finally, there is a **\_\_pycache\_\_ directory** that contains bytecode-compiled versions of the program in directory utils. All it does is start the program a little faster as these files have been already been compiled by the Python interpreter. If the files changed, these will be recompiled as the import statement in main.py is executed. Similarly, in case they were deleted, they will be once more created when executing the main file.
+
+### **Utils: Kafka, Postgres and MongoDB**
+
+Let's first have a closer look at the classes in utils directory. Each of them has a set of functions define. Amidst these, there are functions for connecting to the services running in the Docker compose, reading from Kafka topic, or writing messages to both databases.
+
+For the Kafka service, we have defined a single function that enables us to connect to Kafka bootstrap server and read from a specific topic:
+
+```python
+from kafka import KafkaConsumer
+import logging
+
+
+class Kafka:
+
+    def __init__(self) -> None:
+        self.connectKafka = "connectKafka"
+
+    def connectKafka(topic: str, bootstrap_servers: str) -> KafkaConsumer:
+        """Connect to Kafka Listener
+
+        Args:
+            - topic: Kakfa topic to read from
+            - bootstrap_servers: host:port pair address of Kafka brokers
+
+        Returns:
+            - kafka.KafkaConsumer instance from which to consume messages
+        """
+        try:
+            kafka_consumer = KafkaConsumer(
+                topic, bootstrap_servers=bootstrap_servers)
+            logging.info("Connected to Kafka listener")
+            return kafka_consumer
+        except Exception as e:
+            logging.error("Unable to connect to Kafka listener")
+            logging.exception(e)
+            quit()
+```
+
+For the case of the databases, they both have functions to connect to the database server. Once this client authentication has been provided, actions like inserting, creating tables, etc. can be performed.
+
+For the case of Postgres, functions are as follows:
+
+```python
+def connectPostgreSQL(host: str, port: str, database: str, username: str, password: str) -> dict:
+    """Connect to PostgreSQL database
+
+    Args:
+        - host:
+        - port:
+        - database: name of the database to connecto to (defined in docker-compose file in our case)
+        - username:
+        - password:
+
+    Returns:
+        - dict { str : psycopg2.client, str : psycopg2.client.cursor } instance to connect to MongoDB
+    """
+    try:
+        connection = Psycopg2Client(host=host, port=port, database=database,
+                                    user=username, password=password)
+        cursor = connection.cursor()
+        logging.info("Connected to PostgreSQL")
+        return {"connection": connection, "cursor": cursor}
+
+    except Exception as e:
+        logging.error("Unable to connect to PostgreSQL")
+        logging.exception(e)
+
+def createTablePostgreSQL(PostgresClient: Psycopg2Client, table_name: str, table_schema: str):
+    """Create a table in PostgreSQL if not exists in the database to which we are connected
+
+    Note: a schema must be provided as SQL databases are schema on-write
+
+    Args:
+        - PostgresClient: Psycopg2Client client instance to connect to Postgres database
+        - table_name: name of table we want to create
+        - table_schema: schema of the table we want to create
+    """
+
+    if PostgresClient is None:
+        logging.error(
+            "Unable to create table in Postgres due to missing client instance")
+        quit()
+
+    query = "CREATE TABLE IF NOT EXISTS public.{0} ({1})".format(
+        table_name, table_schema)
+    try:
+        PostgresClient["cursor"].execute(query)
+        PostgresClient["connection"].commit()
+        logging.info("Table created")
+    except Exception as e:
+        logging.error("Unable to create table")
+        logging.exception(e)
+
+def writeKafkaMessageToPostgreSQL(message, PostgresClient):
+    """Insert a single record into Postgres database
+
+    Args:
+        - message: message from Kafka consumer instance
+        - PostgresClient: Psycopg2Client client instance to connect to Postgres database
+    """
+    if PostgresClient is None:
+        logging.error(
+            "Unable to write to Postgres due to missing client instance")
+
+    decoded_msg = json.loads(message.value.decode("utf-8"))
+    template = Template(
+        """INSERT INTO public.quotes(quotes, charact, imag) VALUES ('$quote' , '$charact' , '$imag')""")
+    query = template.substitute(
+        quote=decoded_msg['quote'].replace("'", "`"), charact=decoded_msg['character'], imag=decoded_msg['image'])
+    try:
+        PostgresClient["cursor"].execute(query)
+        PostgresClient["connection"].commit()
+        logging.info("Quote successfully inserted in Postgres DB")
+    except Exception as e:
+        logging.error(
+            "Unable to insert the message to PostgreSQL database")
+        logging.exception(e)
+
+```
+
+Check [Mongo](python%20script/utils/Mongo.py) and [Postgres](python%20script/utils/Postgres.py) files for detailed explanation.
+
+### **Main script**
+
+This script is in charge of calling the functions from the utils classes. In this file, authentication variables are stated, although it is not best practice at all.
+
+The script begins importing the classes defined in the utils directory scripts. Right after the imports, there is a snippet of code dedicated to setting the basic configuration and display options of the logging messages. In the configuration we have set the minimum level to information, which will allow us to display all messages from warning, error, message, etc. logging levels, the message format that includes datetime, level name and message, and the file to which these will be written. The _console_ variable defined afterwards enables to display in the command line the logging messages. Logging level for these is set at error, thereby solely error and critical logging messages are showed.
+
+Note that in the functions of utils classes, the try-except error handling statement allows us to easily track where is the error coming from as a user error-level message is provided along with the message from the imported library.
+
+After this logging option definition, the main function is defined. In this, authentication parameters, addresses, and other variables required for calling the functions, are stated. **_Improvements in this shall be done in near future._** First, one-time called functions are defined. Connections to different services (Kafka Listener, database servers) are stablished in conjunction to database, table and collection definitions. Once these have been created, we can start listening to the Kafka broker, and by means of a for loop insert the messages to the databases with their respective writing functions.
+
+Finally, you might have noticed the if**name** == ""\_\_main\_\_"" statement. This condition is used to run parts of code when being executed as a script (case True), or when imported as a module (case False).
+
+!!! Explain more
+
+See this [page](https://realpython.com/if-name-main-python/) for further details.
+
+```python
+import logging
+import json
+from utils.Kafka import Kafka
+from utils.Mongo import Mongo
+from utils.Postgres import Postgres
+
+# Set logging parameters for future monitoring, debugging or error-handling
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s %(name)-37s %(levelname)-10s %(message)s',
+                    datefmt='%Y-%m-%d %H:%M:%S ',
+                    filename="challenge2.log",
+                    filemode='w')
+# define a Handler which writes INFO messages or higher to the sys.stderr
+console = logging.StreamHandler()
+console.setLevel(logging.ERROR)
+# add the handler to the root logger
+logging.getLogger('').addHandler(console)
+
+# ---------------------------------------------------------------------------------
+# ------------------------------- MAIN PROGRAM ------------------------------------
+# ---------------------------------------------------------------------------------
+
+
+def main():
+
+    # Connect to Kafka to consume latest messages and auto-commit offsets
+    topic = 'topic_quotes'
+    bootstrap_server = 'localhost:9092'
+    kafka_consumer = Kafka.connectKafka(
+        topic=topic, bootstrap_servers=bootstrap_server)
+
+    # Connect to MongoDB with server configuration with authentication requirements
+    host = "localhost"
+    port = 27017  # Listener internal/external to Docker (9092/29092)
+    username = "mchi"
+    password = "mchi1234"
+    database_name = "simpsons"
+
+    # Connect to MongoDB
+    mongoClient = Mongo.connectMongoDB(
+        host=host, port=port, username=username, password=password)
+
+    # Create MongoDB collection and database
+    db_name = "simpson_db"
+    collection_name = "quotes"
+    collection = Mongo.createMongoCollection(
+        mongoClient, db_name, collection_name)
+
+    # Connect to Postgres with same authentication of Mongo and create table (schema on-write)
+    port_postgres = "5432"
+    table_name = "quotes"
+    table_schema = """ quote_id SERIAL PRIMARY KEY,
+	quotes VARCHAR(500),
+	charact VARCHAR(500),
+	imag VARCHAR(500)
+        """
+    # Create Postgres table in public part
+    connection = Postgres.connectPostgreSQL(host=host, port=port_postgres, database=database_name,
+                                            username=username, password=password)
+    Postgres.createTablePostgreSQL(connection, table_name=table_name,
+                                   table_schema=table_schema)
+
+    connection = Postgres.connectPostgreSQL(host=host, port=port_postgres, database=database_name,
+                                            username=username, password=password)
+
+    # Insert messages in stream while connected to Kafka bootstrap server (kafka_consumer)
+    for msg in kafka_consumer:
+        """
+        For every event in Kafka we receive two messages: content + metadata
+        The content messages have a NULL msg.key, thus the condition below.
+        Note that if we are not properly filtering these messages, we might get:
+            ERROR: json.decoder.JSONDecodeError: Expecting value: line 1 column 1
+        """
+        if msg.key is None:
+            Mongo.writeKafkaMessageToMongo(msg, collection)
+            Postgres.writeKafkaMessageToPostgreSQL(msg, connection)
+        else:
+            pass
+
+    connection["cursor"].close()
+
+
+if __name__ == "__main__":
+    main()
+
+```
 
 One thing we will need to consider when composing the Python script a is where it will be executed. So as to know the address of the listener, we must have in mind the Kafka Architecture briefly explained above. In case the program is executed in a container from Docker, the port must be the 9092. On the contrary, if trying to access the Kafka listener from outside Docker (localhost), port 29092 should be used.
 
@@ -185,6 +407,10 @@ One thing we will need to consider when composing the Python script a is where i
   </p>  
 </p>
 
-py -m pip install pymongo on local
+It is worth mentioning the libraries must be installed wherever this code is executed. In this case, where script is interpreted using the host hardware, libraries shall be previously installed running the following command in the interpreter that will be used:
+
+```
+py -m pip install psycopg2 && py -m pip install pymongo
+```
 
 <a name="build-image"></a> \_needed for referencing in Docker Basics_when creating own python image
