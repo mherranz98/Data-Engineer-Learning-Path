@@ -413,4 +413,89 @@ It is worth mentioning the libraries must be installed wherever this code is exe
 py -m pip install psycopg2 && py -m pip install pymongo
 ```
 
-<a name="build-image"></a> \_needed for referencing in Docker Basics_when creating own python image
+<br>
+
+## **Fourth step**: Run the Python program
+
+We will run this program in two different ways:
+
+- **Host machine execution**: program will be simply executed running a command in a local command prompt.
+- **Containerized environment**: will need to design an additional container that will contain a Python image in it, and which, by means of volumes, will execute the script.
+
+As we discussed short before, hinging on the execution host, the ports may vary.
+
+Regardless of the execution mode, it is recommended to access the services UIs, logging in, and connecting to Docker services if required (like in Postgres case).
+
+In the pgadmin web interface, we will first need to register the Postgres server to access it.
+
+<p align = "center">
+  <img src="pics/pic2_13.png" alt="Register Postgres server to access their contents from the UI" width="600">
+  <p align = "center">
+    <i>Register Postgres server to access their contents from the UI</i>
+  </p>  
+</p>
+
+<br>
+
+<p align = "center">
+  <img src="pics/pic2_14.png" alt="Connect to Postgres server using the IPAddress of the service and credentials" width="350">
+  <p align = "center">
+    <i>Connect to Postgres server using the IPAddress of the service and credentials</i>
+  </p>  
+</p>
+
+<br>
+ 
+At this point, we can start building and running the Nifi pipeline. We can also check that messages are being sent to the Kafka broker by accessing its UI.
+
+<p align = "center">
+  <img src="pics/pic2_16.png" alt="Run Nifi pipeline and see messages in Kafka topic with UI" width="650">
+  <p align = "center">
+    <i>Run Nifi pipeline and see messages in Kafka topic with UI</i>
+  </p>  
+</p>
+
+### **In the host machine**
+
+For this case, the docker compose needed consists of Nifi, Kafka and both database images along with their respective UIs. Python directory is stored in the local machine, and it is from here where we will have to interact with the running Docker containers. It is thereby required to use the external address for connecting the host machine with the Docker host. The host:port pair for connecting the Python client (host machine) to Kafka broker (Docker host) is kafka:29092, because _kafka_ is the name of the Kafka service host (container name in Docker), and 29092 is the external port exposed by Kafka to access their brokers.
+
+After all is set, we can run the main python script by executing in the local CLI the following command:
+
+```bash
+py main.py
+```
+
+This will run until an error occurs, or one stops it manually (Ctrl+C). To check that messages are being properly inserted in the databases, we can both access the log file or the database UIs.
+
+<p align = "center">
+  <img src="pics/pic2_18.png" alt="Inserted messages in Mongo DB and Postgres" width="750">
+  <p align = "center">
+    <i>Inserted messages in Mongo DB and Postgres</i>
+  </p>  
+</p>
+
+<br>
+
+<p align = "center">
+  <img src="pics/pic2_17.png" alt="Inserted messages in Mongo DB and Postgres" width="650">
+  <p align = "center">
+    <i>Inserted messages in Mongo DB and Postgres</i>
+  </p>  
+</p>
+
+<br>
+
+<a name="build-image"></a>
+
+### **Containerized Environment**
+
+For this case, the docker compose needed consists of Nifi, Kafka, both database images along with their respective UIs, and finally a Python image that will be created using a Dockerfile. Python directory is stored in the local machine but by means of a volume it is mapped to the Python container. We will need to access the Python container image CLI to execute the python main script.
+For that reason, we will need to use the internal address for connecting the Python container with the Kafka one as they both reside in the same Docker host. The host:port pair for connecting the Python client (host machine) to Kafka broker (Docker host) is kafka:9092, because _kafka_ is the name of the Kafka service host (container name in Docker), and 9092 is the internal port exposed by Kafka to access their brokers.
+
+For building our own Python image, we will design it taking into consideration the layered architecture of Docker images. The first command in the Dockerfile is the FROM, which states the base image that will be used to start the build process. In our case, this will be a Python image.
+
+After all is set, we can run the main python script by executing in the local CLI the following command:
+
+```bash
+py main.py
+```
