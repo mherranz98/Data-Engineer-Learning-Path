@@ -139,9 +139,9 @@ Whilst running the pipeline, we can open the Kafka UI accessing the [http://loca
 The Python scripts will be structured in the following manner:
 
 ```bash
-PS C:\Work\GitHub\DataEngineerLearningPath\Docker\Challenge 2\python script> TREE /F
+PS ..\DataEngineerLearningPath\Docker\Challenge 2\python script> TREE /F
 │   challenge2.log                      # log file for debugging and monitoring
-│   main.py                             # main Python program
+│   main.py                             # Main Python program
 └───utils/                              # Folder with functions used in main.py script
     │   Kafka.py
     │   Mongo.py
@@ -158,9 +158,10 @@ PS C:\Work\GitHub\DataEngineerLearningPath\Docker\Challenge 2\python script> TRE
 
 - The **main.py** file contains the variables (credentials, names of DB or tables, etc.) that the functions stored in the utils directory will take. This script is the one that will be executed.
 
-- The **utils directory** first contains a set of three Python classes, one for each technology that will be used during the challenge. First of all, there is a **Kafka class** that contains one single function that will be used to connect to the Kafka broker by means of the client library. In order to work with Kafka from a Python program, we must its client library for Python. It provides a convenient and powerful way for Python developers to produce and consume messages to and from Kafka clusters. Secondly, there is a Class for each of the databases. For **MongoDB class**, we defined three functions: one to connect to Mongo (container in Docker), one to create a database and a collection that will just be executed once the first message is inserted, and a final one to append the messages to the collection. For **Postgres class**, we created three functions: one that connects to the Postgres server (container in Docker), another that creates a table in the database specified in the docker-compose (simpsons), and a final one to insert each message to the table.
+- The **utils directory** first contains a set of three Python classes, one for each technology that will be used during the challenge. First of all, there is a **Kafka class** that contains one single function that will be used to connect to the Kafka broker by means of the client library. In order to work with Kafka from a Python program, we must its client library for Python. It provides a convenient and powerful way for Python developers to produce and consume messages to and from Kafka clusters. Secondly, there is a Class for each of the databases. For **MongoDB class**, we defined three functions: one to connect to Mongo (container in Docker), one to create a database and a collection that will just be executed once the first message is inserted, and a final one to append the messages to the collection. For **Postgres class**, we created three functions: one that connects to the Postgres server (container in Docker), another that creates a table in the database specified in the docker-compose (simpsons), and a final one to insert each message to the table. <br>
+  Note that in all these classes, an **\_\_init\_\_** method is defined. This is the Python equivalent of the C++ constructor in an object-oriented approach. Every time an instance of a class is created, this function is called.
 
-- Note that in all these classes, an **\_\_init\_\_** method is defined. This is the Python equivalent of the C++ constructor in an object-oriented approach. Every time an instance of an object is created from a class this function is called. Furthermore, we have a **\_\_init\_\_.py** file in the utils directory. Even though this is empty, it is used to mark directories on disk as Python package directories. If you have Python files you can import the code in them with:
+- Furthermore, we have a **\_\_init\_\_.py** file in the utils directory. Even though this is empty, it is used to mark directories on disk as Python package directories. If you have Python files you can import the code in them with:
 
 ```python
 import directory.file
@@ -169,9 +170,9 @@ from directory import file
 ```
 
 - If \_\_init\_\_.py file was removed, Python would no longer look for submodules inside that directory, so attempts to import the module will fail. Like in our case, the \_\_init\_\_.py file is usually empty, but can be used to export selected portions of the package under more convenient name, hold convenience functions, etc.
-  When this is imported, the \_\_init\_\_ file is implicitly executed, and the objects it defines are bound to names in the package namespace. See the official [documentation](https://docs.python.org/3/reference/import.html#regular-packages) for more detail.
+  When this is imported, the \_\_init\_\_ file is implicitly executed and the objects it defines are bound to names in the package namespace. See the official [documentation](https://docs.python.org/3/reference/import.html#regular-packages) for more detail.
 
-- Finally, there is a **\_\_pycache\_\_ directory** that contains bytecode-compiled versions of the program in directory utils. All it does is start the program a little faster as these files have been already been compiled by the Python interpreter. If the files changed, these will be recompiled as the import statement in main.py is executed. Similarly, in case they were deleted, they will be once more created when executing the main file.
+- Finally, there is a **\_\_pycache\_\_ directory** that contains bytecode-compiled versions of the program in directory utils. All it does is start the program a little faster as these files have already been compiled by the Python interpreter. If the files changed, these will be recompiled as the import statement in main.py is executed. Similarly, in case they were deleted, they will be once more created when executing the main file.
 
 ### **Utils: Kafka, Postgres and MongoDB**
 
@@ -298,17 +299,14 @@ Check [Mongo](python%20script/utils/Mongo.py) and [Postgres](python%20script/uti
 
 This script is in charge of calling the functions from the utils classes. In this file, authentication variables are stated, although it is not best practice at all.
 
-The script begins importing the classes defined in the utils directory scripts. Right after the imports, there is a snippet of code dedicated to setting the basic configuration and display options of the logging messages. In the configuration we have set the minimum level to information, which will allow us to display all messages from warning, error, message, etc. logging levels, the message format that includes datetime, level name and message, and the file to which these will be written. The _console_ variable defined afterwards enables to display in the command line the logging messages. Logging level for these is set at error, thereby solely error and critical logging messages are showed.
+The script begins importing the classes defined in the utils directory scripts. Right after the imports, there is a snippet of code dedicated to setting the basic configuration and display options of the logging messages. In the configuration, we have set the minimum level to INFO, which will allow us to display all messages from warning, error, etc. logging levels; the message format that includes datetime, level name and message; and the file to which these logs will be written. The _console_ variable defined afterwards enables to display in the command line the logging messages. Logging level for these is set at error, thereby solely error and critical logging messages are showed.
 
 Note that in the functions of utils classes, the try-except error handling statement allows us to easily track where is the error coming from as a user error-level message is provided along with the message from the imported library.
 
 After this logging option definition, the main function is defined. In this, authentication parameters, addresses, and other variables required for calling the functions, are stated. **_Improvements in this shall be done in near future._** First, one-time called functions are defined. Connections to different services (Kafka Listener, database servers) are stablished in conjunction to database, table and collection definitions. Once these have been created, we can start listening to the Kafka broker, and by means of a for loop insert the messages to the databases with their respective writing functions.
 
-Finally, you might have noticed the if**name** == ""\_\_main\_\_"" statement. This condition is used to run parts of code when being executed as a script (case True), or when imported as a module (case False).
-
-!!! Explain more
-
-See this [page](https://realpython.com/if-name-main-python/) for further details.
+At the end of the code a **if \_\_name\_\_ == ""\_\_main\_\_""** statement is defined. This condition is used to run parts of code when being executed as a script (case True), or when imported as a module (case False).
+When nesting the code that is relevant for your task under the idiom, you avoid running irrelevant code from imported modules. See this [page](https://realpython.com/if-name-main-python/) for further details.
 
 ```python
 import logging
@@ -398,7 +396,7 @@ if __name__ == "__main__":
 
 ```
 
-One thing we will need to consider when composing the Python script a is where it will be executed. So as to know the address of the listener, we must have in mind the Kafka Architecture briefly explained above. In case the program is executed in a container from Docker, the port must be the 9092. On the contrary, if trying to access the Kafka listener from outside Docker (localhost), port 29092 should be used.
+One thing we will need to consider when composing the Python script is where it will be executed. So as to know the address of the listener, we must have in mind the Kafka Architecture briefly explained above. In case the program is executed in a container from Docker, the used will be the 9092 (as defined in docker-compose file). On the contrary, if trying to access the Kafka listener from outside Docker, i.e. localhost, port 29092 should be used.
 
 <p align = "center">
   <img src="pics/pic2_2.png" alt="Kafka Architecture within Docker" width="550">
@@ -407,7 +405,7 @@ One thing we will need to consider when composing the Python script a is where i
   </p>  
 </p>
 
-It is worth mentioning the libraries must be installed wherever this code is executed. In this case, where script is interpreted using the host hardware, libraries shall be previously installed running the following command in the interpreter that will be used:
+It is worth mentioning the libraries must be installed wherever this code is executed. In this case, where the script is interpreted using the host machine, libraries shall be previously installed running the following command in the interpreter that will be used:
 
 ```
 py -m pip install psycopg2 && py -m pip install pymongo
@@ -487,14 +485,23 @@ This will run until an error occurs, or one stops it manually (Ctrl+C). To check
 
 <a name="build-image"></a>
 
-### **Containerized Environment**
+## **Containerized Environment**
 
-For this case, the docker compose needed consists of Nifi, Kafka, both database images along with their respective UIs, and finally a Python image that will be created using a Dockerfile. Python directory is stored in the local machine but by means of a volume it is mapped to the Python container. We will need to access the Python container image CLI to execute the python main script.
+For this case, the docker compose consists of Nifi, Kafka, both database images along with their respective UIs, and finally a Python image that will be created using a Dockerfile. Python directory is stored in the local machine but by means of a volume it is mapped to the Python container. We will need to access the Python container image CLI to execute the python main script.
 For that reason, we will need to use the internal address for connecting the Python container with the Kafka one as they both reside in the same Docker host. The host:port pair for connecting the Python client (host machine) to Kafka broker (Docker host) is kafka:9092, because _kafka_ is the name of the Kafka service host (container name in Docker), and 9092 is the internal port exposed by Kafka to access their brokers.
 
-For building our own Python image, we will design it taking into consideration the layered architecture of Docker images. The first command in the Dockerfile is the FROM, which states the base image that will be used to start the build process. In our case, this will be a Python image.
+Construimos una imagen con una layer de base de Python (FROM) (que descargamos anteriormente en el ejercicio 5), en el cual escribimos el directorio de Docker en el que trabajaremos (WORKDIR), los comandos para que instale las librerías de Python en Docker que utilizará el script (RUN), y finalmente el programa que ejecutará por defecto la imagen una vez esté corriendo (utilizará python para correr nuestro script de python).
 
-After all is set, we can run the main python script by executing in the local CLI the following command:
+For building our own Python image, we will design it taking into consideration the layered architecture of Docker images. The first command in the Dockerfile is the FROM, which states the base image that will be used to start the build process. In our case, this will be a Python image.
+Then a WORKDIR statement is used to define the directory that will be used from the base image to work from. Once in the directory, a set of commands are executed by means of a RUN statement. Finally, we need to write in the CMD statement the program that will be executed by default once the container is running. This will need to point to the main.py file of the working directory.
+
+Once the Dockerfile is designed, we need to build the image by means of a docker build command. This will take the image provided by Docker Hub and build our own from it with the requirements specified in the Dockerfile. To do so, we must execute the following command in the directory where the Dockerfile is stored:
+
+```docker
+docker build -t python-for-challenge2 .
+```
+
+This will create in our personal image repo, a customized image following the Dockerfile criteria. After the image is created, we need to recreate the compose by running the docker-compose up -d command. This will make the containers update given the changes made in the compose file.
 
 ```bash
 py main.py

@@ -3,7 +3,6 @@ import json
 from utils.Kafka import Kafka
 from utils.Mongo import Mongo
 from utils.Postgres import Postgres
-from utils.credentials import Credentials
 
 # Set logging parameters for future monitoring, debugging or error-handling
 logging.basicConfig(level=logging.INFO,
@@ -23,7 +22,7 @@ logging.getLogger('').addHandler(console)
 
 
 def main():
-    """
+
     # Connect to Kafka to consume latest messages and auto-commit offsets
     topic = 'topic_quotes'
     bootstrap_server = 'localhost:9092'
@@ -33,9 +32,8 @@ def main():
     # Connect to MongoDB with server configuration with authentication requirements
     host = "localhost"
     port = 27017  # Listener internal/external to Docker (9092/29092)
-    #username = "mchi"
-    #password = "mchi1234"
-    username, password = Credentials.getCredentials("mchi")
+    username = "mchi"
+    password = "mchi1234"
     database_name = "simpsons"
 
     # Connect to MongoDB
@@ -51,14 +49,12 @@ def main():
     # Connect to Postgres with same authentication of Mongo and create table (schema on-write)
     port_postgres = "5432"
     table_name = "quotes"
-    """
-    # table_schema = """
-    #    quote_id SERIAL PRIMARY KEY,
-    #    quotes VARCHAR(500),
-    #    charact VARCHAR(500),
-    #    imag VARCHAR(500)
-    #    """
-    """
+    table_schema = """ 
+        quote_id SERIAL PRIMARY KEY,
+        quotes VARCHAR(500),
+        charact VARCHAR(500),
+        imag VARCHAR(500)
+        """
     # Create Postgres table in public part
     connection = Postgres.connectPostgreSQL(host=host, port=port_postgres, database=database_name,
                                             username=username, password=password)
@@ -70,14 +66,12 @@ def main():
 
     # Insert messages in stream while connected to Kafka bootstrap server (kafka_consumer)
     for msg in kafka_consumer:
-    """
-    """
+        """
         For every event in Kafka we receive two messages: content + metadata
         The content messages have a NULL msg.key, thus the condition below.
         Note that if we are not properly filtering these messages, we might get: 
             ERROR: json.decoder.JSONDecodeError: Expecting value: line 1 column 1
         """
-    """
         if msg.key is None:
             Mongo.writeKafkaMessageToMongo(msg, collection)
             Postgres.writeKafkaMessageToPostgreSQL(msg, connection)
@@ -85,9 +79,6 @@ def main():
             pass
 
     connection["cursor"].close()
-    """
-    user, password = Credentials.login_clicked()
-    print(user, password)
 
 
 if __name__ == "__main__":
