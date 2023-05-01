@@ -5,6 +5,9 @@ import json
 
 class Mongo:
 
+    if __name__ == "__main__":
+        print("Code is being executed as script")
+
     def __init__(self) -> None:
         self.connectMongoDB = "connectMongoDB"
 

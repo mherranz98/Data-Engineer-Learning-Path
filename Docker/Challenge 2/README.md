@@ -126,7 +126,7 @@ This will display a list of the running containers in the compose chosen with it
 Whilst running the pipeline, we can open the Kafka UI accessing the [http://localhost:8080/](http://localhost:8080/) and check that messages are properly being sent to the topic. The topic name is set in the publisher of the NiFi pipeline. We can set a Live mode so messages will be shown in the UI as they are published to the topic.
 
 <p align = "center">
-  <img src="pics/pic2_5.png" alt="Kafka UI in Live mode" width="400">
+  <img src="pics/pic2_5.png" alt="Kafka UI in Live mode" width="800">
   <p align = "center">
     <i>Kafka UI in Live mode</i>
   </p>  
@@ -156,9 +156,9 @@ PS ..\DataEngineerLearningPath\Docker\Challenge 2\python script> TREE /F
             __init__.cpython-39.pyc
 ```
 
-- The **main.py** file contains the variables (credentials, names of DB or tables, etc.) that the functions stored in the utils directory will take. This script is the one that will be executed.
+- The **main.py** file contains the variables (credentials, names of databases, collections, tables, etc.) that functions stored in the utils directory will take as input variables. This script is the one that will be executed.
 
-- The **utils directory** first contains a set of three Python classes, one for each technology that will be used during the challenge. First of all, there is a **Kafka class** that contains one single function that will be used to connect to the Kafka broker by means of the client library. In order to work with Kafka from a Python program, we must its client library for Python. It provides a convenient and powerful way for Python developers to produce and consume messages to and from Kafka clusters. Secondly, there is a Class for each of the databases. For **MongoDB class**, we defined three functions: one to connect to Mongo (container in Docker), one to create a database and a collection that will just be executed once the first message is inserted, and a final one to append the messages to the collection. For **Postgres class**, we created three functions: one that connects to the Postgres server (container in Docker), another that creates a table in the database specified in the docker-compose (simpsons), and a final one to insert each message to the table. <br>
+- The **utils directory** first contains a set of three Python classes, one for each technology that will be used during the challenge. First of all, there is a **Kafka class** that contains a function used to connect to the Kafka broker by means of the client library. In order to work with Kafka from a Python program, we must its client library for Python, which provides a convenient and powerful way for Python developers to produce and consume messages to and from Kafka clusters. Secondly, there is a Class for each of the databases. For **MongoDB class**, we defined three functions: one to connect to Mongo (mongo container in Docker), one to create a database and a collection, and a final one to append the messages to the collection. For **Postgres class**, we created three functions: one that connects to the Postgres server (postgres container in Docker), another that creates a table in the database specified in the docker-compose (simpsons), and a final one to insert each message to the table. <br>
   Note that in all these classes, an **\_\_init\_\_** method is defined. This is the Python equivalent of the C++ constructor in an object-oriented approach. Every time an instance of a class is created, this function is called.
 
 - Furthermore, we have a **\_\_init\_\_.py** file in the utils directory. Even though this is empty, it is used to mark directories on disk as Python package directories. If you have Python files you can import the code in them with:
@@ -169,131 +169,10 @@ import directory.file
 from directory import file
 ```
 
-- If \_\_init\_\_.py file was removed, Python would no longer look for submodules inside that directory, so attempts to import the module will fail. Like in our case, the \_\_init\_\_.py file is usually empty, but can be used to export selected portions of the package under more convenient name, hold convenience functions, etc.
-  When this is imported, the \_\_init\_\_ file is implicitly executed and the objects it defines are bound to names in the package namespace. See the official [documentation](https://docs.python.org/3/reference/import.html#regular-packages) for more detail.
+- If \_\_init\_\_.py file was removed, Python would no longer look for submodules inside that directory, so attempts to import the module will fail. Like in our case, the \_\_init\_\_.py file is usually empty, but can be used to export selected portions of the package under more convenient name, hold convenience functions, etc. <br>
+  When this is imported, the \_\_init\_\_ file is implicitly executed and the objects it defines are bound to names in the package namespace. See the [official documentation](https://docs.python.org/3/reference/import.html#regular-packages) for more detail.
 
-- Finally, there is a **\_\_pycache\_\_ directory** that contains bytecode-compiled versions of the program in directory utils. All it does is start the program a little faster as these files have already been compiled by the Python interpreter. If the files changed, these will be recompiled as the import statement in main.py is executed. Similarly, in case they were deleted, they will be once more created when executing the main file.
-
-### **Utils: Kafka, Postgres and MongoDB**
-
-Let's first have a closer look at the classes in utils directory. Each of them has a set of functions define. Amidst these, there are functions for connecting to the services running in the Docker compose, reading from Kafka topic, or writing messages to both databases.
-
-For the Kafka service, we have defined a single function that enables us to connect to Kafka bootstrap server and read from a specific topic:
-
-```python
-from kafka import KafkaConsumer
-import logging
-
-
-class Kafka:
-
-    def __init__(self) -> None:
-        self.connectKafka = "connectKafka"
-
-    def connectKafka(topic: str, bootstrap_servers: str) -> KafkaConsumer:
-        """Connect to Kafka Listener
-
-        Args:
-            - topic: Kakfa topic to read from
-            - bootstrap_servers: host:port pair address of Kafka brokers
-
-        Returns:
-            - kafka.KafkaConsumer instance from which to consume messages
-        """
-        try:
-            kafka_consumer = KafkaConsumer(
-                topic, bootstrap_servers=bootstrap_servers)
-            logging.info("Connected to Kafka listener")
-            return kafka_consumer
-        except Exception as e:
-            logging.error("Unable to connect to Kafka listener")
-            logging.exception(e)
-            quit()
-```
-
-For the case of the databases, they both have functions to connect to the database server. Once this client authentication has been provided, actions like inserting, creating tables, etc. can be performed.
-
-For the case of Postgres, functions are as follows:
-
-```python
-def connectPostgreSQL(host: str, port: str, database: str, username: str, password: str) -> dict:
-    """Connect to PostgreSQL database
-
-    Args:
-        - host:
-        - port:
-        - database: name of the database to connecto to (defined in docker-compose file in our case)
-        - username:
-        - password:
-
-    Returns:
-        - dict { str : psycopg2.client, str : psycopg2.client.cursor } instance to connect to MongoDB
-    """
-    try:
-        connection = Psycopg2Client(host=host, port=port, database=database,
-                                    user=username, password=password)
-        cursor = connection.cursor()
-        logging.info("Connected to PostgreSQL")
-        return {"connection": connection, "cursor": cursor}
-
-    except Exception as e:
-        logging.error("Unable to connect to PostgreSQL")
-        logging.exception(e)
-
-def createTablePostgreSQL(PostgresClient: Psycopg2Client, table_name: str, table_schema: str):
-    """Create a table in PostgreSQL if not exists in the database to which we are connected
-
-    Note: a schema must be provided as SQL databases are schema on-write
-
-    Args:
-        - PostgresClient: Psycopg2Client client instance to connect to Postgres database
-        - table_name: name of table we want to create
-        - table_schema: schema of the table we want to create
-    """
-
-    if PostgresClient is None:
-        logging.error(
-            "Unable to create table in Postgres due to missing client instance")
-        quit()
-
-    query = "CREATE TABLE IF NOT EXISTS public.{0} ({1})".format(
-        table_name, table_schema)
-    try:
-        PostgresClient["cursor"].execute(query)
-        PostgresClient["connection"].commit()
-        logging.info("Table created")
-    except Exception as e:
-        logging.error("Unable to create table")
-        logging.exception(e)
-
-def writeKafkaMessageToPostgreSQL(message, PostgresClient):
-    """Insert a single record into Postgres database
-
-    Args:
-        - message: message from Kafka consumer instance
-        - PostgresClient: Psycopg2Client client instance to connect to Postgres database
-    """
-    if PostgresClient is None:
-        logging.error(
-            "Unable to write to Postgres due to missing client instance")
-
-    decoded_msg = json.loads(message.value.decode("utf-8"))
-    template = Template(
-        """INSERT INTO public.quotes(quotes, charact, imag) VALUES ('$quote' , '$charact' , '$imag')""")
-    query = template.substitute(
-        quote=decoded_msg['quote'].replace("'", "`"), charact=decoded_msg['character'], imag=decoded_msg['image'])
-    try:
-        PostgresClient["cursor"].execute(query)
-        PostgresClient["connection"].commit()
-        logging.info("Quote successfully inserted in Postgres DB")
-    except Exception as e:
-        logging.error(
-            "Unable to insert the message to PostgreSQL database")
-        logging.exception(e)
-
-```
-
-Check [Mongo](python%20script/utils/Mongo.py) and [Postgres](python%20script/utils/Postgres.py) files for detailed explanation.
+- Finally, the **\_\_pycache\_\_ directory** contains bytecode-compiled versions of the program in directory utils. All it does is start the program a little faster as these files have already been compiled by the Python interpreter. If the files changed, these will be recompiled as the import statement in main.py is executed. Similarly, in case they were deleted, they will be once more created when executing the main file.
 
 ### **Main script**
 
@@ -303,10 +182,12 @@ The script begins importing the classes defined in the utils directory scripts. 
 
 Note that in the functions of utils classes, the try-except error handling statement allows us to easily track where is the error coming from as a user error-level message is provided along with the message from the imported library.
 
-After this logging option definition, the main function is defined. In this, authentication parameters, addresses, and other variables required for calling the functions, are stated. **_Improvements in this shall be done in near future._** First, one-time called functions are defined. Connections to different services (Kafka Listener, database servers) are stablished in conjunction to database, table and collection definitions. Once these have been created, we can start listening to the Kafka broker, and by means of a for loop insert the messages to the databases with their respective writing functions.
+After this logging option definition, the main function is defined. In this, authentication parameters, addresses, and other variables required for calling the functions, are stated.
+For obvious reasons, it is no best practice to store sensitive information like usernames, passwords or other keys as defined variables in the python script. Nonetheless, due to the fact that this project is simply pedagogical, there is no need to hesitate much about workarounds to enforce or set security policies. <br>
+First, connections to different services (Kafka Listener, database servers) are stablished in conjunction to database, table and collection creations. Once done, we can start listening to the Kafka broker, and by means of a for loop populate both databases with messages in Kafka topic.
 
-At the end of the code a **if \_\_name\_\_ == ""\_\_main\_\_""** statement is defined. This condition is used to run parts of code when being executed as a script (case True), or when imported as a module (case False).
-When nesting the code that is relevant for your task under the idiom, you avoid running irrelevant code from imported modules. See this [page](https://realpython.com/if-name-main-python/) for further details.
+At the end of the code a **if \_\_name\_\_ == ""\_\_main\_\_""** statement is defined. This condition is used to run parts of code when being executed as a script (case True), or when imported as a module (case False). In this case, we will execute the main function just explained. <br>
+When nesting the code that is relevant for your task under the idiom, you avoid running irrelevant code from imported modules ([see lines 8-10 in Mongo example](python%20script/utils/Mongo.py)). For further details, refer to [this page](https://realpython.com/if-name-main-python/).
 
 ```python
 import logging
