@@ -101,9 +101,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=mchi
       - MONGO_INITDB_ROOT_PASSWORD=mchi1234
       - MONGO_INITDB_DATABASE=simpsons
-    #volumes:
-    #  - C:\Work\GitHub\DataEngineerLearningPath\Docker\Challenge 2\mongo_storage:/data/db
-  
+
   mongo-express:
     container_name: mongo-express
     image: mongo-express
@@ -116,14 +114,3 @@ services:
       - 8081:8081
     depends_on: 
       - mongo
-  
-
-  # Custom-created python image in order to execute the script in a fully-dockerized env.
-  python:
-    container_name: python-for-challenge2
-    image: python-for-challenge2
-    depends_on:
-      - kafka
-      - mongo
-      - zookeeper
-    restart: always

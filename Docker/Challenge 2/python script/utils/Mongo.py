@@ -5,6 +5,7 @@ import json
 
 class Mongo:
 
+    # These code lines will not be executed when the Mongo class is used as an imported module in main.py file
     if __name__ == "__main__":
         print("Code is being executed as script")
 

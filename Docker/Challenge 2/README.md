@@ -80,7 +80,7 @@ docker-compose up -d
 ```
 
 <p align = "center">
-  <img src="pics/pic2_3.png" alt="docker-compose up command" width="600">
+  <img src="pics/pic2_3.png" alt="docker-compose up command" width="800">
   <p align = "center">
     <i>docker-compose up command</i>
   </p>  
@@ -174,20 +174,13 @@ from directory import file
 
 - Finally, the **\_\_pycache\_\_ directory** contains bytecode-compiled versions of the program in directory utils. All it does is start the program a little faster as these files have already been compiled by the Python interpreter. If the files changed, these will be recompiled as the import statement in main.py is executed. Similarly, in case they were deleted, they will be once more created when executing the main file.
 
-### **Main script**
+<br>
 
-This script is in charge of calling the functions from the utils classes. In this file, authentication variables are stated, although it is not best practice at all.
+The main script is in charge of calling the functions from the utils classes. In this file, authentication variables are stated, although it is not best practice at all.
 
 The script begins importing the classes defined in the utils directory scripts. Right after the imports, there is a snippet of code dedicated to setting the basic configuration and display options of the logging messages. In the configuration, we have set the minimum level to INFO, which will allow us to display all messages from warning, error, etc. logging levels; the message format that includes datetime, level name and message; and the file to which these logs will be written. The _console_ variable defined afterwards enables to display in the command line the logging messages. Logging level for these is set at error, thereby solely error and critical logging messages are showed.
 
 Note that in the functions of utils classes, the try-except error handling statement allows us to easily track where is the error coming from as a user error-level message is provided along with the message from the imported library.
-
-After this logging option definition, the main function is defined. In this, authentication parameters, addresses, and other variables required for calling the functions, are stated.
-For obvious reasons, it is no best practice to store sensitive information like usernames, passwords or other keys as defined variables in the python script. Nonetheless, due to the fact that this project is simply pedagogical, there is no need to hesitate much about workarounds to enforce or set security policies. <br>
-First, connections to different services (Kafka Listener, database servers) are stablished in conjunction to database, table and collection creations. Once done, we can start listening to the Kafka broker, and by means of a for loop populate both databases with messages in Kafka topic.
-
-At the end of the code a **if \_\_name\_\_ == ""\_\_main\_\_""** statement is defined. This condition is used to run parts of code when being executed as a script (case True), or when imported as a module (case False). In this case, we will execute the main function just explained. <br>
-When nesting the code that is relevant for your task under the idiom, you avoid running irrelevant code from imported modules ([see lines 8-10 in Mongo example](python%20script/utils/Mongo.py)). For further details, refer to [this page](https://realpython.com/if-name-main-python/).
 
 ```python
 import logging
@@ -207,12 +200,14 @@ console = logging.StreamHandler()
 console.setLevel(logging.ERROR)
 # add the handler to the root logger
 logging.getLogger('').addHandler(console)
+```
 
-# ---------------------------------------------------------------------------------
-# ------------------------------- MAIN PROGRAM ------------------------------------
-# ---------------------------------------------------------------------------------
+<br>
+After this logging option definition, the main function is defined. In this, authentication parameters, addresses, and other variables required for calling the functions, are stated.
+For obvious reasons, it is no best practice to store sensitive information like usernames, passwords or other keys as defined variables in the python script. Nonetheless, due to the fact that this project is simply pedagogical, there is no need to hesitate much about workarounds to enforce or set security policies. <br>
+First, connections to different services (Kafka Listener, database servers) are stablished in conjunction to database, table and collection creations. Once done, we can start listening to the Kafka broker, and by means of a for loop populate both databases with messages in Kafka topic.
 
-
+```python
 def main():
 
     # Connect to Kafka to consume latest messages and auto-commit offsets
@@ -270,13 +265,17 @@ def main():
             pass
 
     connection["cursor"].close()
-
-
-if __name__ == "__main__":
-    main()
-
 ```
 
+At the end of the code a **if \_\_name\_\_ == ""\_\_main\_\_""** statement is defined. This condition is used to run parts of code when being executed as a script (case True), or when imported as a module (case False). In this case, we will execute the main function just explained. <br>
+When nesting the code that is relevant for your task under the idiom, you avoid running irrelevant code from imported modules ([see lines 8-10 in Mongo example](python%20script/utils/Mongo.py)). For further details, refer to [this page](https://realpython.com/if-name-main-python/).
+
+```python
+if __name__ == "__main__":
+    main()
+```
+
+<br>
 One thing we will need to consider when composing the Python script is where it will be executed. So as to know the address of the listener, we must have in mind the Kafka Architecture briefly explained above. In case the program is executed in a container from Docker, the used will be the 9092 (as defined in docker-compose file). On the contrary, if trying to access the Kafka listener from outside Docker, i.e. localhost, port 29092 should be used.
 
 <p align = "center">
@@ -286,10 +285,13 @@ One thing we will need to consider when composing the Python script is where it 
   </p>  
 </p>
 
+<br>
 It is worth mentioning the libraries must be installed wherever this code is executed. In this case, where the script is interpreted using the host machine, libraries shall be previously installed running the following command in the interpreter that will be used:
 
-```
+```python
 py -m pip install psycopg2 && py -m pip install pymongo
+""" OR """
+pip3 install -r requirements.txt
 ```
 
 <br>
@@ -334,7 +336,9 @@ At this point, we can start building and running the Nifi pipeline. We can also 
   </p>  
 </p>
 
-### **In the host machine**
+<br>
+
+## **Running Python in the host machine**
 
 For this case, the docker compose needed consists of Nifi, Kafka and both database images along with their respective UIs. Python directory is stored in the local machine, and it is from here where we will have to interact with the running Docker containers. It is thereby required to use the external address for connecting the host machine with the Docker host. The host:port pair for connecting the Python client (host machine) to Kafka broker (Docker host) is kafka:29092, because _kafka_ is the name of the Kafka service host (container name in Docker), and 29092 is the external port exposed by Kafka to access their brokers.
 
@@ -363,38 +367,3 @@ This will run until an error occurs, or one stops it manually (Ctrl+C). To check
 </p>
 
 <br>
-
-<a name="build-image"></a>
-
-## **Containerized Environment**
-
-For this case, the docker compose consists of Nifi, Kafka, both database images along with their respective UIs, and finally a Python image that will be created using a Dockerfile. Python directory is stored in the local machine but by means of a volume it is mapped to the Python container. We will need to access the Python container image CLI to execute the python main script.
-For that reason, we will need to use the internal address for connecting the Python container with the Kafka one as they both reside in the same Docker host. The host:port pair for connecting the Python client (host machine) to Kafka broker (Docker host) is kafka:9092, because _kafka_ is the name of the Kafka service host (container name in Docker), and 9092 is the internal port exposed by Kafka to access their brokers.
-
-For building our own Python image, we will design it taking into consideration the layered architecture of Docker images. The first command in the Dockerfile is the FROM, which states the base image that will be used to start the build process. In our case, this will be a Python image.
-Then a WORKDIR statement is used to define the directory that will be used from the base image to work from. Once in the directory, a set of commands are executed by means of a RUN statement. Finally, we need to write in the CMD statement the program that will be executed by default once the container is running. This will need to point to the main.py file of the working directory.
-
-```docker
-FROM python:3.8-slim-buster
-
-WORKDIR /app
-
-COPY requirements.txt requirements.txt
-
-RUN pip3 install -r requirements.txt
-
-#COPY . .
-#CMD ["python3", "script.py"]
-```
-
-Once the Dockerfile is designed, we need to build the image by means of a docker build command. This will take the image provided by Docker Hub and build our own from it with the requirements specified in the Dockerfile. To do so, we must execute the following command in the directory where the Dockerfile is stored:
-
-```docker
-docker build -t python-for-challenge2 .
-```
-
-This will create in our personal image repo, a customized image following the Dockerfile criteria. After the image is created, we need to recreate the compose by running the docker-compose up -d command. This will make the containers update given the changes made in the compose file.
-
-```bash
-py main.py
-```
