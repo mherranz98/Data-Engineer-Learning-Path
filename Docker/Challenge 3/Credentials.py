@@ -30,8 +30,8 @@ class Credentials:
         return [uv.get(), pv.get()]
 
     def login_clicked():
-        """ callback when the login button clicked
-        """
+        """Request login credentials using a GUI."""
+
         import tkinter as tk
         # root window
         root = tk.Tk()
@@ -71,14 +71,5 @@ class Credentials:
         #msg = f'You entered email: {email.get()} and password: {password.get()}'
         #showinfo(title='Information', message=msg)
         root.mainloop()
-
-        """Request login credentials using a GUI."""
-
-        #userEntry.pack(padx=100, pady=20)
-        #passEntry.pack(padx=100, pady=20)
-        #btnClose.pack(padx=50, pady=5, )
-        root.mainloop()
-
-        # return [uv.get(), pv.get()]
 
         return [email.get(), password.get()]

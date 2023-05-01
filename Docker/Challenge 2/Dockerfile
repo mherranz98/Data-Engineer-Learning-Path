@@ -1,7 +1,10 @@
-FROM python
+FROM python:3.8-slim-buster
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-RUN python -m pip install kafka-python && python -m pip install pymongo
+COPY requirements.txt requirements.txt
 
-CMD ["python ", "script.py"]
+RUN pip3 install -r requirements.txt
+
+#COPY . .
+#CMD ["python3", "script.py"]

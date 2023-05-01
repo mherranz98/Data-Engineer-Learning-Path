@@ -125,8 +125,5 @@ services:
     depends_on:
       - kafka
       - mongo
-      - mongo-express
       - zookeeper
-    volumes:
-      - C:\Work\GitHub\DataEngineerLearningPath\Docker\Challenge 2\python_volume:/usr/src/app
-    restart: on-failure
+    restart: always
