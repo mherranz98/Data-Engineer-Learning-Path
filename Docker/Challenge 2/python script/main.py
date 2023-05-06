@@ -3,6 +3,8 @@ from utils.Kafka import Kafka
 from utils.Mongo import Mongo
 from utils.Postgres import Postgres
 
+# ---------------------------------------------------------------------------------
+
 # Set logging parameters for future monitoring, debugging or error-handling
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(name)-37s %(levelname)-10s %(message)s',
@@ -79,6 +81,8 @@ def main():
             pass
 
     connection["cursor"].close()
+
+# ---------------------------------------------------------------------------------
 
 
 if __name__ == "__main__":
