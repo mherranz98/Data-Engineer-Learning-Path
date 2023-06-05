@@ -47,13 +47,13 @@ Its key features are the following:
 
 <br>
 
-## **Distributed Computing and Spark Architecture**
+## **Apache Spark's Distributed Execution**
 
 Distributed computing refers to the use of multiple computers or systems working together to solve a computational problem. Instead of relying on a single powerful machine (high CPU/GPU), which used to be the way of working a few decades ago with relational databases, distributed computing leverages the combined processing power, storage capacity and a common network of interconnected nodes (servers), to achieve a common goal.
 
-The main idea behind distributed computing is to break down a complex problem into smaller, more manageable tasks that can be processed concurrently by different nodes. Each node performs its portion of the computation or task independently, and the results are combined or coordinated to produce the final outcome.
+The main idea behind distributed computing is to break down a complex problem into smaller and more manageable tasks that can be processed concurrently by different nodes. Each node performs its portion of the computation or task independently, and the results are combined or coordinated to produce the final outcome.
 
-Here are some **key components** involved in distributed computing:
+Some **key aspects** of distributed computing are:
 
 - **Workload Distribution** of tasks that are divided into smaller units, often referred to as subtasks or jobs, and distributed among the available nodes. This mechanism ensures that each node receives via the common network a proportional portion of the overall workload.
 
@@ -63,29 +63,27 @@ Here are some **key components** involved in distributed computing:
 
 - **Data Sharing and Consistency** across multiple nodes. Techniques such as distributed file systems, distributed databases, or data replication ensure consistent and reliable data access and management.
 
-Overall, distributed computing offers advantages such as improved performance, scalability, fault tolerance, and resource utilization. It finds applications in various domains, including scientific research, data analysis, cloud computing, distributed databases, and distributed artificial intelligence, among others.
+Overall, distributed computing offers advantages such as improved performance, scalability, fault tolerance, and improved resource utilization. It finds applications in multiple domains, including scientific research, data analysis, cloud computing, distributed databases, and distributed artificial intelligence, among others.
 
 <br>
 
-Going back to Apache Spark, the main components of a typical cluster are the following:
+Going back to Apache Spark architecture, the main components of a typical Spark cluster are the following:
 
-1. **Driver Program** is the entry point for a Spark application. It contains the application's main function and defines the operations to be performed on the data. The driver program runs on a node in the cluster and is responsible for creating and managing the SparkContext.
+1. **Driver Program** is the process running the main function of the application and creating the SparkContext. It contains the application's main function and defines the operations that executors (JVMs) need to perform on data. The driver program runs on a node in the cluster and is responsible for creating and managing the SparkContext.
 
-2. **SparkContext (SC)** is the entry point to interact with the Spark cluster. It coordinates the execution of tasks and manages the cluster resources. The driver program communicates with the SparkContext to create RDDs, perform transformations and actions, and control the overall execution flow.
+2. **Spark Context** is the entry point to interact with the Spark cluster. It coordinates the execution of tasks and manages the cluster resources. The driver program communicates with the SparkContext to create RDDs, perform transformations and actions, and control the overall execution flow.
 
-3. **Cluster Manager (or master node)** is responsible for allocating resources and managing the cluster's computing resources. Spark can work with different cluster managers, such as Apache Mesos, Hadoop YARN, or its standalone cluster manager. The cluster manager launches and monitors the Spark applications, assigns resources (CPU, memory), and manages fault tolerance.
+3. **Cluster Manager** is responsible for allocating and managing cluster's resources. Spark can work with different cluster managers, such as Apache Mesos, Hadoop YARN, or its standalone cluster manager. The cluster manager launches and monitors the Spark applications, assigns resources (CPU, memory), and manages fault tolerance. It corresponds to the master node of other technologies.
 
-4. **Executors** run on the cluster's worker nodes. Executors are responsible for executing tasks assigned by the driver program. Each executor is allocated a certain amount of memory and CPU cores. Executors store data in memory and perform computations on that data. They communicate with the driver program and other executors for data exchange and task coordination.
+4. **Executors** run on the worker nodes and are responsible for executing tasks assigned by the driver program. Each executor has a certain amount of memory and CPU cores assigned by the cluster manager. Executors are responsible for communicating with the driver program as well as with the other executors for data exchange and task coordination, for storing intermediate data computations in memory, and for performing the required computations. In reality, they are JVMs that execute the application program.
 
-5. **Worker nodes** are the individual servers that run the executors. Each worker node hosts one or more executors and provides the computing resources required for executing tasks. These nodes receive instructions from the cluster manager and communicate with the driver program and other workers to perform data processing.
+5. **Worker nodes** are the individual servers that run the executors. Each worker node hosts one or more executors and provides the computing resources. These nodes receive instructions from the cluster manager and communicate with the driver program and other workers to perform data processing.
 
-6. **Distributed Storage System** like Hadoop Distributed File System (HDFS), Amazon S3, or Apache Cassandra provide fault-tolerant and scalable storage for data processed by Spark. RDDs can be created directly from the data stored in these distributed storage systems.
+6. **Distributed Storage Systems** like Hadoop Distributed File System (HDFS), Amazon S3, or Apache Cassandra provide fault-tolerant and scalable storage for data processed by Spark. These systems rely on dividing data in several partitions that are sent to the multiple nodes of the cluster. Though it is not always possible, each Spark Executor (JVM) has the task assigned so that partition it needs to read is the closest in the network (observing its data locality and aiming to safe time and minimize bandwidth). Partitioning technique allows for efficient parallelism.
 
-7. **RDD ("Resilient Distributed Dataset")** is the core abstraction in Spark, representing a distributed collection of data that can be processed in parallel across the cluster. RDDs are fault-tolerant and immutable, allowing for data resilience and efficient distributed processing. They are created from data stored in distributed storage systems or by transforming existing RDDs using various operations.
+7. **Shuffle Manager** is responsible for coordinating the exchange of data between executors during operations that require data redistribution, such as groupByKey or reduceByKey. It manages the data shuffle process to efficiently transfer and aggregate data between different partitions on different nodes.
 
-8. **Shuffle Manager** is responsible for coordinating the exchange of data between executors during operations that require data redistribution, such as groupByKey or reduceByKey. It manages the data shuffle process to efficiently transfer and aggregate data between different partitions on different nodes.
-
-9. Last but not least, a common **network** is used to enable communication in order to coordinate, synchronize and distribute workload across nodes.
+8. Last but not least, a common **network** is used to enable a fast and secure communication across nodes in order to coordinate, synchronize and distribute workload.
 
 <p align = "center">
   <img src="../../Images/pics/Spark_Standalone_Cluster.png" alt="Spark Cluster Architecture" width = 500>
@@ -95,6 +93,12 @@ Going back to Apache Spark, the main components of a typical cluster are the fol
 </p>
 
 <br>
+
+## **Working with structured data in Spark**
+
+RDD ("Resilient Distributed Dataset") is the core abstraction in Spark, representing a distributed collection of data that can be processed in parallel across the cluster. RDDs are fault-tolerant and immutable, allowing for data resilience and efficient distributed processing. They are created from data stored in distributed storage systems or by transforming existing RDDs using various operations.
+
+With regard to Spark's unified stack components these include **Spark SQL** that is a module that works well with structured data, enables users to read and write to RDBMS or different file formats (AVRO, CSV, JSON, etc.), and even query with SQL-like statements. Secondly, **Spark MLlib** is a library containing the most common ML algorithms, but also common linear algebra operations and statistics. Regarding streaming jobs, Spark contains a module called **Sparl Structured Streaming** that supports microbatching processing of structured (tabular) data while handling vital aspects for fault-tolerance or late-semantics. Last but not least, Spark contains a library for manipulating graph data structures named **GraphX**. It contains the basic algorithms for analysis, connections, and tranversals.
 
 ---
 
