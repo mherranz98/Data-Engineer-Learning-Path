@@ -1,7 +1,7 @@
 <br>
 <br>
 
-# **Challenge 4: PySpark, Apache Kafka, and DBs ✨🐍🧑🏼‍💻**
+# **Challenge 5: Spark Scala with local files ✨🐍🧑🏼‍💻**
 
 ---
 
