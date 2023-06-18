@@ -1,6 +1,0 @@
-{
-    "url_postgres": "jdbc:postgresql://postgres:5432/simpsons",
-    "table": "public.quotes",
-    "mode": "append",
-    "properties": "{'user':'mchi', 'password':'mchi1234','driver':'org.postgresql.Driver'}"
-}

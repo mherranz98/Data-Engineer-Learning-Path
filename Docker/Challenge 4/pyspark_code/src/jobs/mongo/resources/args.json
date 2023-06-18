@@ -1,6 +1,0 @@
-{
-    "uri_mongo":"mongodb://mchi:mchi1234@mongodb:27017/simpsons.quotes?authSource=admin",
-    "mode":"append",
-    "database":"simpsons",
-    "collection":"quotes"
-}

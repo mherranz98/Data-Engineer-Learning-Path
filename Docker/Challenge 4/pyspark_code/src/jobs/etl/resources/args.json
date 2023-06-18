@@ -1,4 +1,0 @@
-{
-    "bootstrap_servers": "kafka:29092",
-    "topic": "quotes-simpsons"
-}
