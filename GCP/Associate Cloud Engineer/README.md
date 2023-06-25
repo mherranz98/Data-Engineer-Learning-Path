@@ -31,20 +31,39 @@ The main reason for doing this repository is to help others with the exam prepar
 
 ## 🧑🏼‍💻 Chapters
 
-- [`Introduction`](Introduction) : this chapter will help us understand the final goals of this exam
-
-  - [`Notes`](Docker/Basics%20of%20Docker/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
+<br>
 
 - [`Introduction`](Introduction) : this chapter will help us understand the final goals of this exam
 
-  - [`Notes`](Docker/Basics%20of%20Docker/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
+- [`Infrastructure Foundation`](Infrastructure%20Foundation) : this chapter will help us understand the final goals of this exam
 
-- [`Introduction`](Introduction) : this chapter will help us understand the final goals of this exam
+  - [`Networks`](Infrastructure%20Foundation/Networks/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
 
-  - [`Notes`](Docker/Basics%20of%20Docker/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
+  - [`Virtual Machines`](Infrastructure%20Foundation/Virtual%20Machines/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
 
-- [`Introduction`](Introduction) : this chapter will help us understand the final goals of this exam
-  - [`Notes`](Docker/Basics%20of%20Docker/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
+  - [`IAM`](Infrastructure%20Foundation/IAM/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
+
+  - [`Storage Services`](Infrastructure%20Foundation/Storage%20Services/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
+
+  - [`Resource Management and Monitoring`](Infrastructure%20Foundation/Resource%20Management%20and%20Monitoring/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
+
+- [`Kubernetes`](Kubernetes) : this chapter will help us understand the final goals of this exam
+
+  - [`Containers and Kubernetes`](Kubernetes/Containers%20and%20Kubernetes/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
+
+  - [`Computing Options`](Kubernetes/Computing%20Options/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
+
+  - [`Kubernetes Architecture and GKE`](Kubernetes/Kubernetes%20Architecture%20and%20GKE/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
+
+  - [`Kubernetes Workloads`](Kubernetes/Kubernetes%20Workloads/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
+
+- [`Resource Management`](Resource%20Management) : this chapter will help us understand the final goals of this exam
+
+  - [`Logging and Monitoring`](Resource%20Management/Logging%20and%20Monitoring/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
+
+  - [`Alerting Policies`](Resource%20Management/Alerting%20Policies/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
+
+  - [`Monitoring Critial Systems`](Resource%20Management/Monitoring%20Critial%20Systems/README.md) explains the basics of Docker architecture, the differences and advantages with VMs and other deployments, as well as some basic commands
 
 <br>
 
